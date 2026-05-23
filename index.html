@@ -1,0 +1,2069 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EduHubSA — Run your institution, not the chaos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #FAFAF2;
+  --bg-2: #F2F1E6;
+  --ink: #0E0E0C;
+  --ink-2: #2C2C28;
+  --muted: #6B6B62;
+  --line: #1a1a17;
+  --hair: rgba(14,14,12,.10);
+
+  --lime: #C8F23A;
+  --lime-2: #B0E51A;
+  --lime-deep: #82B007;
+  --mint: #BFE9C5;
+  --pine: #2F6B3C;
+  --grass: #4FA661;
+  --lilac: #C8B8F0;
+  --peach: #F8C9A1;
+  --cream: #F5E7C8;
+
+  --r-1: 8px;
+  --r-2: 14px;
+  --r-3: 22px;
+  --r-pill: 999px;
+
+  --shadow-sm: 0 1px 0 rgba(14,14,12,.06), 0 2px 6px rgba(14,14,12,.04);
+  --shadow-md: 0 8px 24px -10px rgba(14,14,12,.18);
+  --shadow-card: 0 22px 40px -20px rgba(14,14,12,.25);
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ---------- Nav ---------- */
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in oklab, var(--bg) 92%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .25s ease, background .25s ease;
+}
+.nav-wrap.scrolled { border-bottom-color: var(--hair); }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -.02em;
+}
+.brand-mark {
+  width: 34px; height: 34px;
+  background: var(--ink);
+  border-radius: 9px;
+  display: grid; place-items: center;
+  color: var(--lime);
+  transform: rotate(-6deg);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.brand:hover .brand-mark { transform: rotate(6deg) scale(1.06); }
+.brand-mark svg { width: 18px; height: 18px; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+.nav-link {
+  font-weight: 500;
+  font-size: 15.5px;
+  color: var(--ink);
+  position: relative;
+  padding: 6px 0;
+}
+.nav-link::after {
+  content: "";
+  position: absolute; left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: var(--ink);
+  transition: width .3s cubic-bezier(.2,.8,.2,1);
+}
+.nav-link:hover::after { width: 100%; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid var(--ink);
+  background: var(--lime);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: var(--r-pill);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); background: var(--lime-2); }
+.btn:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--ink); }
+.btn-ghost {
+  background: transparent;
+  box-shadow: none;
+}
+.btn-ghost:hover { background: var(--bg-2); box-shadow: none; transform: none; }
+.btn-dark {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.btn-dark:hover { background: #1f1f1c; }
+
+.btn-arrow {
+  display: inline-grid; place-items: center;
+  width: 22px; height: 22px;
+  background: var(--ink); color: var(--lime);
+  border-radius: 50%;
+  transition: transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.btn:hover .btn-arrow { transform: translateX(3px) rotate(45deg); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  padding: 56px 0 90px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-2);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-pill);
+  padding: 8px 14px 8px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.badge-logo {
+  width: 22px; height: 22px;
+  background: var(--ink);
+  border-radius: 6px;
+  display: grid; place-items: center;
+  color: var(--lime);
+  font-weight: 800; font-size: 12px;
+}
+.badge .stars { color: #E6A500; letter-spacing: -1px; }
+
+.h1 {
+  font-size: clamp(44px, 6.2vw, 80px);
+  line-height: .98;
+  letter-spacing: -.035em;
+  font-weight: 800;
+  margin: 22px 0 22px;
+  color: var(--ink);
+}
+.h1 .word { display: inline-block; }
+.h1 .accent {
+  position: relative;
+  white-space: nowrap;
+}
+.h1 .accent .underline {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: 6px;
+  height: 14px;
+  background: var(--lime);
+  z-index: -1;
+  border-radius: 4px;
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: drawUnderline 1s cubic-bezier(.2,.8,.2,1) .9s forwards;
+}
+@keyframes drawUnderline {
+  to { transform: scaleX(1); }
+}
+
+.lede {
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 480px;
+  margin: 0 0 32px;
+}
+
+.cta-row {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--r-pill);
+  padding: 6px 6px 6px 22px;
+  max-width: 520px;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.cta-row input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+  padding: 12px 0;
+  color: var(--ink);
+}
+.cta-row input::placeholder { color: #9a9a90; }
+.cta-row .suffix {
+  color: var(--muted);
+  font-size: 15px;
+  margin-right: 12px;
+}
+.cta-row .btn { box-shadow: none; }
+.cta-row .btn:hover { transform: none; box-shadow: none; background: var(--lime-2); }
+
+.cta-sub {
+  margin-top: 18px;
+  font-size: 15px;
+  color: var(--ink-2);
+}
+.cta-sub a { font-weight: 700; border-bottom: 1.5px solid var(--ink); }
+
+/* fade-up base */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+.fade-up.in { opacity: 1; transform: translateY(0); }
+.fade-up.d1 { transition-delay: .1s; }
+.fade-up.d2 { transition-delay: .2s; }
+.fade-up.d3 { transition-delay: .35s; }
+.fade-up.d4 { transition-delay: .5s; }
+.fade-up.d5 { transition-delay: .65s; }
+
+/* word stagger */
+.word-reveal { overflow: hidden; display: inline-block; vertical-align: bottom; }
+.word-reveal > span { display: inline-block; transform: translateY(110%); animation: wordUp .9s cubic-bezier(.2,.85,.25,1) forwards; }
+@keyframes wordUp { to { transform: translateY(0); } }
+
+/* ---------- Hero Illustration ---------- */
+.illo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.05/1;
+  min-height: 560px;
+}
+.illo .label {
+  position: absolute;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--ink);
+}
+.illo .label.before { left: 6%; top: 4%; }
+.illo .label.after { right: 16%; top: 0; }
+.illo .label .swoosh {
+  display: block;
+  height: 4px;
+  width: 60px;
+  background: var(--lime);
+  border-radius: 2px;
+  margin-top: -2px;
+  transform-origin: left;
+  animation: drawUnderline .8s cubic-bezier(.2,.8,.2,1) 1.1s both;
+}
+
+.before-card {
+  position: absolute;
+  left: 4%;
+  top: 18%;
+  width: 38%;
+  height: 64%;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 22px;
+  padding: 22px 18px;
+  transform: rotate(-7deg);
+  box-shadow: 6px 8px 0 var(--ink);
+  font-family: var(--font-hand);
+  animation: gentleFloat 6s ease-in-out infinite;
+}
+.before-card h4 {
+  font-size: 26px;
+  margin: 0 0 8px;
+  letter-spacing: -.01em;
+}
+.before-card .scribble {
+  height: 2px;
+  background: var(--ink);
+  margin: 8px 0;
+  border-radius: 1px;
+  opacity: .8;
+}
+.before-card .scribble.s1 { width: 84%; }
+.before-card .scribble.s2 { width: 68%; }
+.before-card .scribble.s3 { width: 76%; }
+.before-card .stamp {
+  position: absolute;
+  bottom: 14px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+}
+.before-card .chaos {
+  margin: 20px 0 0;
+  font-size: 32px;
+  color: var(--ink);
+  transform: rotate(-3deg);
+  line-height: 1;
+}
+.before-card .chaos em { color: #c43; font-style: italic; }
+
+@keyframes gentleFloat {
+  0%, 100% { transform: rotate(-7deg) translateY(0); }
+  50% { transform: rotate(-6deg) translateY(-8px); }
+}
+
+.after-stack {
+  position: absolute;
+  right: 0;
+  top: 6%;
+  width: 70%;
+  height: 92%;
+}
+.browser {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 10px 12px 0 var(--ink);
+  overflow: hidden;
+  animation: floatY 7s ease-in-out infinite;
+}
+.browser-bar {
+  height: 30px;
+  background: #F4F4EE;
+  border-bottom: 1.5px solid var(--ink);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 6px;
+}
+.browser-bar .dot { width: 9px; height: 9px; border-radius: 50%; border: 1.2px solid var(--ink); }
+.browser-bar .dot.r { background: #FF6B6B; }
+.browser-bar .dot.y { background: #FFD86E; }
+.browser-bar .dot.g { background: #8FE388; }
+.browser-bar .url {
+  margin-left: 14px;
+  flex: 1;
+  height: 18px;
+  background: #fff;
+  border: 1px solid var(--ink);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 10px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+.browser-body { padding: 18px; }
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.dash-card {
+  border: 1.5px solid var(--ink);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  position: relative;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.dash-card.lime {
+  background: var(--lime);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .04em;
+}
+.dash-card.lime .pills { display: flex; gap: 6px; font-size: 9px; font-weight: 700; }
+.dash-card.lime .pills span { background: rgba(14,14,12,.08); padding: 3px 6px; border-radius: 4px; }
+.dash-card.image {
+  height: 76px;
+  background: linear-gradient(135deg, var(--peach), var(--cream));
+  background-image:
+    radial-gradient(circle at 30% 40%, rgba(0,0,0,.06) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, rgba(0,0,0,.06) 0 2px, transparent 3px),
+    linear-gradient(135deg, var(--peach), var(--cream));
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+.dash-card.green {
+  background: var(--mint);
+  padding: 12px 14px;
+  position: relative;
+}
+.dash-card.green .tag {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-4deg);
+  background: var(--lime);
+  border: 1.5px solid var(--ink);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.dash-card.green h5 {
+  margin: 0 0 4px;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+.dash-card.green p { margin: 0; font-size: 10px; color: var(--ink-2); }
+.dash-card.lilac {
+  background: var(--lilac);
+  padding: 12px 14px;
+}
+.dash-card.lilac .header { text-align: center; font-size: 9.5px; font-weight: 800; letter-spacing: .08em; margin-bottom: 8px; }
+.dash-card.lilac .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.dash-card.lilac .thumb {
+  background: #fff;
+  border: 1.2px solid var(--ink);
+  border-radius: 4px;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+.dash-card.lilac .row .label {
+  background: var(--lime);
+  border: 1px solid var(--ink);
+  font-size: 7px;
+  font-weight: 800;
+  text-align: center;
+  margin-top: 4px;
+  padding: 2px 0;
+  border-radius: 3px;
+}
+
+.doodles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.doodles svg { width: 100%; height: 100%; overflow: visible; }
+.doodle-path { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.dash-svg { stroke-dasharray: 600; stroke-dashoffset: 600; animation: dash 2s cubic-bezier(.6,.1,.4,1) 1.2s forwards; }
+@keyframes dash { to { stroke-dashoffset: 0; } }
+
+.floating-icon {
+  position: absolute;
+  width: 38px; height: 38px;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.floating-icon.ic-1 { top: 22%; right: 18%; animation: bob 4s ease-in-out infinite; }
+.floating-icon.ic-2 { bottom: 14%; right: 6%; animation: bob 5s ease-in-out infinite .5s; }
+.floating-icon.ic-3 { bottom: 6%; left: 28%; animation: bob 4.5s ease-in-out infinite 1s; }
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+.sparkle { position: absolute; color: var(--ink); }
+.sparkle.s1 { top: 12%; right: 32%; animation: twinkle 2s ease-in-out infinite; }
+.sparkle.s2 { top: 56%; right: 4%; animation: twinkle 2.4s ease-in-out infinite .5s; }
+.sparkle.s3 { top: 80%; left: 50%; animation: twinkle 2s ease-in-out infinite 1s; }
+@keyframes twinkle {
+  0%, 100% { transform: scale(1); opacity: .85; }
+  50% { transform: scale(1.4); opacity: 1; }
+}
+
+.hero::before, .hero::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 3px;
+  background: var(--lime);
+}
+.hero::before { left: -1px; }
+.hero::after { right: -1px; }
+
+/* ---------- Logos strip ---------- */
+.logos {
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  padding: 32px 0;
+  background: var(--bg);
+}
+.logos-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.logos-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.logos-track {
+  overflow: hidden;
+  flex: 1;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.logos-marquee {
+  display: flex;
+  gap: 56px;
+  animation: marquee 28s linear infinite;
+  width: max-content;
+}
+.logos-marquee > div {
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  opacity: .85;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.logos-marquee svg { width: 28px; height: 28px; }
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- Section header ---------- */
+.section { padding: 120px 0; position: relative; }
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--ink-2);
+  background: var(--bg-2);
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hair);
+}
+.section-eyebrow .dot { width: 7px; height: 7px; background: var(--lime-deep); border-radius: 50%; }
+.section-title {
+  font-size: clamp(36px, 4.6vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -.03em;
+  font-weight: 800;
+  margin: 18px 0 16px;
+  max-width: 18ch;
+}
+.section-lede {
+  font-size: 18px;
+  color: var(--ink-2);
+  max-width: 56ch;
+  line-height: 1.55;
+  margin: 0;
+}
+.section-head { margin-bottom: 56px; }
+.section-head.center { text-align: center; }
+.section-head.center .section-title,
+.section-head.center .section-lede { margin-left: auto; margin-right: auto; }
+
+/* ---------- Features ---------- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.feature {
+  border: 1.5px solid var(--ink);
+  border-radius: 22px;
+  padding: 28px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+}
+.feature:hover { transform: translateY(-4px); box-shadow: 8px 10px 0 var(--ink); }
+.feature.big { grid-column: span 2; }
+.feature.bg-lime { background: var(--lime); }
+.feature.bg-mint { background: var(--mint); }
+.feature.bg-cream { background: var(--cream); }
+.feature.bg-lilac { background: var(--lilac); }
+
+.feature .num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+  letter-spacing: .08em;
+}
+.feature h3 {
+  font-size: 26px;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  font-weight: 800;
+  margin: 16px 0 10px;
+}
+.feature p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.feature .visual {
+  margin-top: auto;
+  padding-top: 22px;
+}
+
+/* Mini calendar widget */
+.mini-cal {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 3px 3px 0 var(--ink);
+  width: 100%;
+  max-width: 280px;
+}
+.mini-cal .mc-head {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; font-weight: 700; margin-bottom: 8px;
+}
+.mini-cal .mc-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.mini-cal .day {
+  aspect-ratio: 1/1;
+  display: grid; place-items: center;
+  font-size: 10px; font-weight: 600;
+  border-radius: 4px;
+  color: var(--ink-2);
+}
+.mini-cal .day.active { background: var(--ink); color: var(--lime); }
+.mini-cal .day.event { background: var(--lime); color: var(--ink); }
+
+/* Bar chart */
+.bars {
+  display: flex; align-items: flex-end; gap: 8px;
+  height: 110px;
+  padding: 12px;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.bar {
+  flex: 1;
+  background: var(--ink);
+  border-radius: 3px 3px 0 0;
+  transition: height 1s cubic-bezier(.2,.8,.2,1);
+}
+.bar.lime { background: var(--lime); border: 1.5px solid var(--ink); }
+.bar.grass { background: var(--grass); }
+.bar.mint { background: var(--mint); border: 1.5px solid var(--ink); }
+
+/* Roster mock */
+.roster {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.roster .row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--hair);
+  font-size: 13px;
+}
+.roster .row:last-child { border-bottom: none; }
+.roster .av {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 11px;
+  border: 1.2px solid var(--ink);
+  flex-shrink: 0;
+}
+.roster .av.a1 { background: var(--lime); }
+.roster .av.a2 { background: var(--peach); }
+.roster .av.a3 { background: var(--lilac); }
+.roster .av.a4 { background: var(--mint); }
+.roster .name { font-weight: 600; flex: 1; }
+.roster .pill {
+  font-size: 10px; font-weight: 700; padding: 3px 8px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--bg-2);
+}
+.roster .pill.paid { background: var(--mint); }
+.roster .pill.due { background: #FFD86E; }
+.roster .pill.late { background: #FFB6B6; }
+
+/* ---------- Dashboard preview big ---------- */
+.dash-wrap {
+  border: 1.5px solid var(--ink);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 14px 16px 0 var(--ink);
+  overflow: hidden;
+  position: relative;
+}
+.dash-top {
+  height: 44px;
+  background: var(--bg-2);
+  border-bottom: 1.5px solid var(--ink);
+  display: flex; align-items: center; padding: 0 16px;
+  gap: 8px;
+}
+.dash-top .dot { width: 11px; height: 11px; border-radius: 50%; border: 1.2px solid var(--ink); }
+.dash-top .url {
+  margin-left: 16px;
+  flex: 1; max-width: 340px;
+  height: 24px;
+  background: #fff;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  display: flex; align-items: center;
+  padding: 0 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+.dash-body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 480px;
+}
+.dash-side {
+  background: var(--bg);
+  border-right: 1.5px solid var(--ink);
+  padding: 20px 14px;
+}
+.side-brand {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 800; font-size: 15px;
+  margin-bottom: 22px;
+}
+.side-brand .mk {
+  width: 24px; height: 24px;
+  background: var(--ink); color: var(--lime);
+  border-radius: 6px; display: grid; place-items: center;
+  font-size: 12px;
+}
+.side-section { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 16px 8px 8px; }
+.side-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.side-item:hover { background: var(--bg-2); }
+.side-item.active { background: var(--ink); color: var(--lime); }
+.side-item .ico {
+  width: 16px; height: 16px;
+  display: grid; place-items: center;
+}
+.dash-main { padding: 22px 26px; background: var(--bg); }
+.dash-title-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 18px;
+}
+.dash-h { font-size: 22px; font-weight: 800; letter-spacing: -.02em; margin: 0; }
+.dash-h small { font-weight: 500; font-size: 13px; color: var(--muted); margin-left: 8px; }
+.dash-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600;
+  background: var(--mint);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.kpi {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.kpi .value { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin-top: 4px; }
+.kpi .delta { font-size: 11px; font-weight: 700; color: var(--pine); margin-top: 2px; }
+.kpi .delta.down { color: #c43; }
+.kpi.lime { background: var(--lime); }
+.kpi .spark { position: absolute; right: 10px; bottom: 10px; opacity: .7; }
+
+.dash-cards-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 14px;
+}
+.dash-panel {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 220px;
+}
+.dash-panel h4 { margin: 0 0 12px; font-size: 14px; font-weight: 800; }
+.activity-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid var(--hair);
+  font-size: 12.5px;
+}
+.activity-row:first-of-type { border-top: none; }
+.activity-row .ic-circle {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  border: 1px solid var(--ink);
+  display: grid; place-items: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.activity-row .who { font-weight: 700; }
+.activity-row .when { margin-left: auto; color: var(--muted); font-size: 11px; white-space: nowrap; }
+
+.chart {
+  height: 140px;
+  margin-top: 4px;
+}
+
+/* ---------- Stats ---------- */
+.stats-band {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+}
+.stat .num {
+  font-size: clamp(48px, 5.5vw, 84px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--lime);
+}
+.stat .lbl {
+  font-size: 15px;
+  margin-top: 8px;
+  color: rgba(250,250,242,.8);
+}
+.stats-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(200,242,58,.08), transparent 40%),
+                    radial-gradient(circle at 80% 60%, rgba(200,242,58,.06), transparent 40%);
+}
+
+/* ---------- Testimonials ---------- */
+.t-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.t-card {
+  border: 1.5px solid var(--ink);
+  border-radius: 18px;
+  padding: 26px;
+  background: #fff;
+  transition: transform .3s ease;
+}
+.t-card:hover { transform: translateY(-3px); }
+.t-card.feat { background: var(--lime); grid-row: span 2; }
+.t-quote { font-size: 19px; line-height: 1.4; letter-spacing: -.01em; font-weight: 600; margin: 12px 0 22px; }
+.t-card.feat .t-quote { font-size: 24px; }
+.t-author { display: flex; align-items: center; gap: 12px; }
+.t-author .av {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink);
+  display: grid; place-items: center;
+  font-weight: 800;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.t-author .nm { font-weight: 700; font-size: 14px; }
+.t-author .ro { font-size: 12px; color: var(--ink-2); }
+.t-stars { color: #E6A500; font-size: 14px; letter-spacing: 1px; }
+
+/* ---------- Pricing ---------- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.plan {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 22px;
+  padding: 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform .3s ease;
+}
+.plan:hover { transform: translateY(-4px); box-shadow: 8px 10px 0 var(--ink); }
+.plan.featured { background: var(--ink); color: var(--bg); }
+.plan.featured .price { color: var(--lime); }
+.plan.featured .feat-list li::before { background: var(--lime); }
+.plan-tag {
+  position: absolute;
+  top: -14px;
+  right: 24px;
+  background: var(--lime);
+  border: 1.5px solid var(--ink);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(3deg);
+}
+.plan h3 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+.plan .blurb { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+.plan.featured .blurb { color: rgba(250,250,242,.7); }
+.price { font-size: 56px; font-weight: 800; letter-spacing: -.04em; margin: 18px 0 2px; line-height: 1; }
+.price .unit { font-size: 16px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+.plan.featured .price .unit { color: rgba(250,250,242,.6); }
+.feat-list { list-style: none; padding: 0; margin: 22px 0; flex: 1; }
+.feat-list li {
+  position: relative;
+  padding: 8px 0 8px 28px;
+  font-size: 14.5px;
+  border-bottom: 1px solid var(--hair);
+}
+.plan.featured .feat-list li { border-bottom-color: rgba(250,250,242,.12); }
+.feat-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C8F23A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ---------- CTA ---------- */
+.cta-band {
+  background: var(--lime);
+  border-radius: 28px;
+  padding: 72px 56px;
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid var(--ink);
+  margin: 80px auto 120px;
+  max-width: 1180px;
+}
+.cta-band h2 {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin: 0 0 14px;
+  max-width: 16ch;
+}
+.cta-band p { font-size: 18px; max-width: 50ch; margin: 0 0 28px; color: var(--ink-2); }
+.cta-band .deco {
+  position: absolute;
+  right: -40px;
+  bottom: -40px;
+  width: 320px;
+  height: 320px;
+  opacity: .5;
+  pointer-events: none;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 80px 0 40px;
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(3, 1fr);
+  gap: 48px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid rgba(250,250,242,.1);
+}
+.foot-grid h5 {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: .14em;
+  font-weight: 700;
+  color: rgba(250,250,242,.6);
+  margin: 0 0 16px;
+}
+.foot-grid ul { list-style: none; padding: 0; margin: 0; }
+.foot-grid li { margin-bottom: 12px; font-size: 15px; opacity: .9; }
+.foot-grid li a:hover { color: var(--lime); }
+.foot-blurb { font-size: 15px; color: rgba(250,250,242,.7); max-width: 38ch; margin: 14px 0 22px; line-height: 1.5; }
+.foot-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 28px;
+  font-size: 13px;
+  color: rgba(250,250,242,.55);
+}
+.foot-bottom .links { display: flex; gap: 22px; }
+
+/* responsive */
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .illo { min-height: 480px; margin-top: 30px; }
+  .features-grid, .t-grid, .pricing-grid, .stats-grid { grid-template-columns: 1fr 1fr; }
+  .feature.big { grid-column: span 2; }
+  .dash-body { grid-template-columns: 1fr; }
+  .dash-side { display: none; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .features-grid, .t-grid, .pricing-grid, .stats-grid { grid-template-columns: 1fr; }
+  .feature.big { grid-column: span 1; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .dash-cards-row { grid-template-columns: 1fr; }
+  .cta-band { padding: 48px 28px; }
+  .logos-label { display: none; }
+  .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+  .container { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel">
+  /* ── Nav ── */
+  function Nav() {
+    const [scrolled, setScrolled] = React.useState(false);
+    React.useEffect(() => {
+      const onScroll = () => setScrolled(window.scrollY > 12);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    return (
+      <header className={`nav-wrap ${scrolled ? 'scrolled' : ''}`}>
+        <div className="container nav">
+          <a href="#" className="brand">
+            <span className="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 10l9-6 9 6-9 6-9-6z" />
+                <path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5" />
+              </svg>
+            </span>
+            eduhub<span style={{color: 'var(--lime-deep)'}}>sa</span>
+          </a>
+          <nav className="nav-links">
+            <a className="nav-link" href="#features">Features</a>
+            <a className="nav-link" href="#schools">Case Studies</a>
+            <a className="nav-link" href="#blog">Blog</a>
+            <a className="nav-link" href="#pricing">Pricing</a>
+            <a className="nav-link" href="#contact">Need help?</a>
+          </nav>
+          <a className="btn" href="#cta">Start free trial</a>
+        </div>
+      </header>
+    );
+  }
+
+  /* ── Hero Illustration ── */
+  function HeroIllustration() {
+    return (
+      <div className="illo">
+        <div className="label before">
+          Before
+          <span className="swoosh" />
+        </div>
+        <div className="label after">
+          After
+          <span className="swoosh" />
+        </div>
+
+        <div className="before-card">
+          <h4>Class roster<br/>— Term 3</h4>
+          <div className="scribble s1" />
+          <div className="scribble s2" />
+          <div className="scribble s3" />
+          <div className="scribble s1" />
+          <div className="scribble s2" />
+          <div className="chaos">
+            <em>fees?</em><br/>
+            missing 4 ✗<br/>
+            call parents!
+          </div>
+          <div className="stamp">
+            <span>📋</span>
+            <span style={{fontSize: 18, transform: 'rotate(-8deg)'}}>3:42pm</span>
+          </div>
+        </div>
+
+        <div className="after-stack">
+          <div className="browser">
+            <div className="browser-bar">
+              <span className="dot r" /><span className="dot y" /><span className="dot g" />
+              <span className="url">app.eduhubsa.co.za/dashboard</span>
+            </div>
+            <div className="browser-body">
+              <div className="dash-card lime">
+                <span>RHODES HIGH · TERM 3</span>
+                <div className="pills">
+                  <span>STUDENTS</span><span>FEES</span><span>CLASSES</span><span>STAFF</span>
+                </div>
+              </div>
+              <div className="dash-card image">
+                <svg width="100%" height="100%" viewBox="0 0 200 60" preserveAspectRatio="none" style={{position:'absolute', inset:0}}>
+                  <polyline points="0,45 25,38 50,42 75,28 100,32 125,18 150,22 175,10 200,14" fill="none" stroke="#0E0E0C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <polyline points="0,45 25,38 50,42 75,28 100,32 125,18 150,22 175,10 200,14 200,60 0,60" fill="rgba(200,242,58,0.6)" stroke="none"/>
+                </svg>
+                <span style={{position:'relative', fontWeight:800, fontSize:11, letterSpacing:'.1em', background:'#fff', padding:'4px 8px', border:'1.2px solid #0E0E0C', borderRadius:4}}>+18% ATTENDANCE</span>
+              </div>
+              <div className="dash-card green">
+                <h5>Fee reminder ready</h5>
+                <p>42 parents will receive a friendly SMS at 4pm — auto-generated.</p>
+                <span className="tag">SEND →</span>
+              </div>
+              <div className="dash-card lilac">
+                <div className="header">★ TOP PERFORMERS — GRADE 11 ★</div>
+                <div className="row">
+                  <div>
+                    <div className="thumb">👩🏽‍🎓</div>
+                    <div className="label">A+ 92%</div>
+                  </div>
+                  <div>
+                    <div className="thumb">🧑🏾‍🎓</div>
+                    <div className="label">A 88%</div>
+                  </div>
+                  <div>
+                    <div className="thumb">👨🏻‍🎓</div>
+                    <div className="label">A 86%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="doodles">
+          <svg viewBox="0 0 600 600" preserveAspectRatio="none">
+            <path className="doodle-path dash-svg" d="M 230 200 C 280 140, 340 130, 380 170" />
+            <path className="doodle-path dash-svg" d="M 380 170 l -12 -4 m 12 4 l -4 -12" strokeWidth="2.4" />
+            <path className="doodle-path dash-svg" d="M 130 470 C 160 510, 220 510, 260 480" />
+            <path className="doodle-path dash-svg" d="M 260 480 l -10 1 m 10 -1 l 0 -10" strokeWidth="2.4" />
+            <path className="doodle-path dash-svg" d="M 460 290 C 510 280, 540 320, 520 360 C 500 400, 440 390, 430 350 C 425 320, 430 296, 460 290 Z" />
+            <g transform="translate(290 320) rotate(-12)">
+              <rect className="doodle-path dash-svg" x="0" y="0" width="44" height="32" rx="3" />
+              <path className="doodle-path dash-svg" d="M 0 0 L 22 18 L 44 0" />
+            </g>
+            <path className="doodle-path dash-svg" d="M 180 540 L 200 510 L 220 540 Z" />
+            <path className="doodle-path dash-svg" d="M 350 540 q 8 -10 16 0 t 16 0 t 16 0" />
+          </svg>
+        </div>
+
+        <div className="sparkle s1">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" /></svg>
+        </div>
+        <div className="sparkle s2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" /></svg>
+        </div>
+        <div className="sparkle s3">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" /></svg>
+        </div>
+
+        <div className="floating-icon ic-1">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+        </div>
+        <div className="floating-icon ic-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div className="floating-icon ic-3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </div>
+      </div>
+    );
+  }
+
+  /* ── Hero ── */
+  function Hero() {
+    const [domain, setDomain] = React.useState('');
+    return (
+      <section className="hero">
+        <div className="container hero-grid">
+          <div className="hero-left">
+            <div className="badge fade-up in">
+              <span className="badge-logo">E</span>
+              <span className="stars">★★★★★</span>
+              <span>Trusted by 120+ institutions across SA</span>
+            </div>
+
+            <h1 className="h1">
+              <span className="word-reveal"><span style={{animationDelay: '.05s'}}>Run</span></span>{' '}
+              <span className="word-reveal"><span style={{animationDelay: '.12s'}}>your</span></span>{' '}
+              <span className="word-reveal"><span style={{animationDelay: '.20s'}}>institution,</span></span>
+              <br />
+              <span className="word-reveal"><span style={{animationDelay: '.30s'}}>not</span></span>{' '}
+              <span className="word-reveal"><span style={{animationDelay: '.40s'}}>the</span></span>{' '}
+              <span className="accent">
+                <span className="word-reveal"><span style={{animationDelay: '.50s'}}>chaos.</span></span>
+                <span className="underline" />
+              </span>
+            </h1>
+
+            <p className="lede fade-up d3 in">
+              EduHubSA replaces six clunky tools with one calm system —
+              admissions, fees, attendance, timetables and parent comms
+              — built for South African universities &amp; high schools.
+            </p>
+
+            <form className="cta-row fade-up d4 in" onSubmit={(e) => { e.preventDefault(); alert('Thanks! We\'ll be in touch at ' + (domain || 'your-school') + '.edu.za'); }}>
+              <input
+                type="text"
+                placeholder="your-school"
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+              />
+              <span className="suffix">.edu.za</span>
+              <button className="btn" type="submit">
+                Get Started Free
+                <span className="btn-arrow">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </span>
+              </button>
+            </form>
+
+            <p className="cta-sub fade-up d5 in">
+              Already have an account? <a href="#">Sign in here.</a>
+            </p>
+          </div>
+
+          <div className="hero-right fade-up d2 in">
+            <HeroIllustration />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Logos ── */
+  function Logos() {
+    const items = [
+      'Cape High', 'Stellenbosch Prep', 'UCT Faculty', 'Pretoria College',
+      'Durban Academy', 'Khanya Institute', 'Northcliff High', 'Gauteng University',
+      'Bloemfontein College', 'Western Cape Tech',
+    ];
+    const Item = ({name, i}) => (
+      <div key={i}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 10l9-6 9 6-9 6-9-6z"/>
+          <path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/>
+        </svg>
+        {name}
+      </div>
+    );
+    return (
+      <section className="logos">
+        <div className="container logos-inner">
+          <div className="logos-label">Loved by schools &amp; unis →</div>
+          <div className="logos-track">
+            <div className="logos-marquee">
+              {[...items, ...items].map((n, i) => <Item key={i} name={n} i={i} />)}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Features ── */
+  function AnimatedBars() {
+    const [vals, setVals] = React.useState([40, 70, 55, 88, 65, 92, 78]);
+    React.useEffect(() => {
+      const id = setInterval(() => {
+        setVals(v => v.map(() => 30 + Math.round(Math.random() * 65)));
+      }, 2400);
+      return () => clearInterval(id);
+    }, []);
+    const labels = ['M','T','W','T','F','S','S'];
+    const colorOf = (i) => i === 5 ? 'lime' : (i % 3 === 0 ? 'mint' : 'grass');
+    return (
+      <div>
+        <div className="bars">
+          {vals.map((v, i) => (
+            <div key={i} className={`bar ${colorOf(i)}`} style={{height: `${v}%`}} />
+          ))}
+        </div>
+        <div style={{display: 'flex', justifyContent: 'space-between', padding: '6px 16px 0', fontSize: 10, fontWeight: 600, color: 'var(--muted)'}}>
+          {labels.map((l, i) => <span key={i}>{l}</span>)}
+        </div>
+      </div>
+    );
+  }
+
+  function MiniStat({label, value}) {
+    return (
+      <div>
+        <div style={{fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.1em', color: 'var(--muted)'}}>{label}</div>
+        <div style={{fontSize: 28, fontWeight: 800, letterSpacing: '-.02em', marginTop: 2}}>{value}</div>
+      </div>
+    );
+  }
+
+  function Features() {
+    return (
+      <section className="section" id="features">
+        <div className="container">
+          <div className="section-head">
+            <span className="section-eyebrow"><span className="dot" /> What you get</span>
+            <h2 className="section-title">One platform, every<br/>messy spreadsheet retired.</h2>
+            <p className="section-lede">
+              From admissions on day one to graduation. EduHubSA pulls students, fees, timetables,
+              attendance and parent comms into one calm dashboard — and yes, it works offline at rural sites too.
+            </p>
+          </div>
+
+          <div className="features-grid">
+            <article className="feature big bg-lime">
+              <span className="num">01 — STUDENT INFORMATION</span>
+              <h3>Every learner's file, one click away.</h3>
+              <p>Marks, attendance, fees, medical notes, parent contacts — searchable in 200ms across 12,000 students. Bulk import from your old SIS.</p>
+              <div className="visual">
+                <div className="roster">
+                  <div className="row">
+                    <div className="av a1">TM</div>
+                    <div>
+                      <div className="name">Thandi Mokoena</div>
+                      <div style={{fontSize: 11, color: 'var(--muted)'}}>Grade 11A · #ED-2024-0481</div>
+                    </div>
+                    <div className="pill paid">Paid</div>
+                  </div>
+                  <div className="row">
+                    <div className="av a2">LB</div>
+                    <div>
+                      <div className="name">Liam Bekker</div>
+                      <div style={{fontSize: 11, color: 'var(--muted)'}}>Grade 10C · #ED-2024-0612</div>
+                    </div>
+                    <div className="pill due">Due</div>
+                  </div>
+                  <div className="row">
+                    <div className="av a3">AN</div>
+                    <div>
+                      <div className="name">Aisha Naidoo</div>
+                      <div style={{fontSize: 11, color: 'var(--muted)'}}>Grade 12B · #ED-2024-0203</div>
+                    </div>
+                    <div className="pill paid">Paid</div>
+                  </div>
+                  <div className="row">
+                    <div className="av a4">SD</div>
+                    <div>
+                      <div className="name">Sipho Dlamini</div>
+                      <div style={{fontSize: 11, color: 'var(--muted)'}}>Grade 9A · #ED-2024-0907</div>
+                    </div>
+                    <div className="pill late">Late</div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article className="feature bg-mint">
+              <span className="num">02 — ATTENDANCE</span>
+              <h3>Roll-call in under 30 seconds.</h3>
+              <p>Teachers tap once. Parents are notified the moment a child is marked absent.</p>
+              <div className="visual">
+                <AnimatedBars />
+              </div>
+            </article>
+
+            <article className="feature">
+              <span className="num">03 — TIMETABLES</span>
+              <h3>Auto-built timetables that actually work.</h3>
+              <p>The constraint engine resolves room clashes, teacher loads, and matric exam blocks for you.</p>
+              <div className="visual">
+                <div className="mini-cal">
+                  <div className="mc-head"><span>Week 6 · Aug</span><span style={{color: 'var(--lime-deep)'}}>● Term 3</span></div>
+                  <div className="mc-grid">
+                    {['M','T','W','T','F','S','S'].map((d, i) => <div key={`d${i}`} className="day" style={{color: 'var(--muted)'}}>{d}</div>)}
+                    {Array.from({length: 21}, (_, i) => {
+                      const cls = i === 9 ? 'day active' : ([3,11,16].includes(i) ? 'day event' : 'day');
+                      return <div key={i} className={cls}>{i + 1}</div>;
+                    })}
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article className="feature bg-cream">
+              <span className="num">04 — FEES &amp; FINANCE</span>
+              <h3>Collect fees without the awkward phone calls.</h3>
+              <p>Automated reminders via WhatsApp &amp; SMS in 4 official languages. PayShap &amp; EFT supported.</p>
+              <div className="visual">
+                <div style={{display:'flex', gap:8, flexWrap:'wrap'}}>
+                  <div style={{padding:'10px 14px', background:'#fff', border:'1.5px solid var(--ink)', borderRadius:10, fontSize:12, fontWeight:700, boxShadow:'2px 2px 0 var(--ink)'}}>💬 WhatsApp</div>
+                  <div style={{padding:'10px 14px', background:'#fff', border:'1.5px solid var(--ink)', borderRadius:10, fontSize:12, fontWeight:700, boxShadow:'2px 2px 0 var(--ink)'}}>📲 SMS</div>
+                  <div style={{padding:'10px 14px', background:'var(--lime)', border:'1.5px solid var(--ink)', borderRadius:10, fontSize:12, fontWeight:700, boxShadow:'2px 2px 0 var(--ink)'}}>⚡ PayShap</div>
+                  <div style={{padding:'10px 14px', background:'#fff', border:'1.5px solid var(--ink)', borderRadius:10, fontSize:12, fontWeight:700, boxShadow:'2px 2px 0 var(--ink)'}}>🏦 EFT</div>
+                </div>
+              </div>
+            </article>
+
+            <article className="feature bg-lilac">
+              <span className="num">05 — PARENT PORTAL</span>
+              <h3>Parents stop asking. They just know.</h3>
+              <p>Live marks, attendance and announcements — on any phone, in their language.</p>
+              <div className="visual">
+                <div style={{background:'#fff', border:'1.5px solid var(--ink)', borderRadius:14, padding:14, boxShadow:'3px 3px 0 var(--ink)', maxWidth: 220}}>
+                  <div style={{fontSize:11, color:'var(--muted)', fontWeight:700, textTransform:'uppercase', letterSpacing:'.1em'}}>Today · 14:20</div>
+                  <div style={{fontSize:13, marginTop:6, fontWeight:600, lineHeight:1.4}}>Thandi got <span style={{background:'var(--lime)', padding:'1px 6px', borderRadius:3}}>82%</span> in Maths Paper 2 🎉</div>
+                </div>
+              </div>
+            </article>
+
+            <article className="feature big">
+              <span className="num">06 — WORKS EVERYWHERE</span>
+              <h3>Built for South Africa. Loadshedding-ready.</h3>
+              <p>Full offline mode for rural campuses, POPIA-compliant data hosted in JHB &amp; CPT, and a 4MB mobile app that works on a feature phone if needed.</p>
+              <div className="visual" style={{display:'flex', alignItems:'center', gap: 24}}>
+                <MiniStat label="Uptime" value="99.98%" />
+                <div style={{width:1, height: 56, background: 'var(--hair)'}}/>
+                <MiniStat label="Avg load" value="180ms" />
+                <div style={{width:1, height: 56, background: 'var(--hair)'}}/>
+                <MiniStat label="Offline sync" value="Auto" />
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Dashboard ── */
+  function SideItem({icon, label, active, badge}) {
+    const icons = {
+      home: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>,
+      bar: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>,
+      user: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/></svg>,
+      grad: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>,
+      cal: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
+      check: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
+      card: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>,
+      bell: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>,
+      msg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg>,
+    };
+    return (
+      <div className={`side-item ${active ? 'active' : ''}`}>
+        <span className="ico">{icons[icon]}</span>
+        <span style={{flex: 1}}>{label}</span>
+        {badge && <span style={{fontSize: 10, fontWeight: 700, opacity: .7}}>{badge}</span>}
+      </div>
+    );
+  }
+
+  function Kpi({label, value, delta, lime}) {
+    return (
+      <div className={`kpi ${lime ? 'lime' : ''}`}>
+        <div className="label">{label}</div>
+        <div className="value">{value}</div>
+        <div className="delta">↗ {delta}</div>
+        <svg className="spark" width="50" height="20" viewBox="0 0 50 20">
+          <polyline points="0,15 8,12 16,14 24,8 32,10 40,5 50,7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+    );
+  }
+
+  function Activity({who, what, when, ico}) {
+    return (
+      <div className="activity-row">
+        <span className="ic-circle">{ico}</span>
+        <span><span className="who">{who}</span> {what}</span>
+        <span className="when">{when} ago</span>
+      </div>
+    );
+  }
+
+  function DashChart() {
+    const days = 14;
+    const data = React.useMemo(() => Array.from({length: days}, (_, i) => 78 + Math.round(Math.sin(i * 0.7) * 8) + Math.round(Math.random() * 6)), []);
+    const max = Math.max(...data);
+    const min = Math.min(...data);
+    const w = 600, h = 140, pad = 12;
+    const xs = (i) => pad + (i / (days - 1)) * (w - pad * 2);
+    const ys = (v) => pad + (1 - (v - (min - 5)) / ((max + 5) - (min - 5))) * (h - pad * 2);
+    const path = data.map((v, i) => `${i === 0 ? 'M' : 'L'} ${xs(i)} ${ys(v)}`).join(' ');
+    const area = path + ` L ${xs(days-1)} ${h - pad} L ${xs(0)} ${h - pad} Z`;
+    return (
+      <svg viewBox={`0 0 ${w} ${h}`} className="chart" preserveAspectRatio="none" style={{width:'100%'}}>
+        <path d={area} fill="rgba(200,242,58,0.4)" />
+        <path d={path} fill="none" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        {data.map((v, i) => (
+          <circle key={i} cx={xs(i)} cy={ys(v)} r={i === days-1 ? 5 : 3} fill={i === days-1 ? 'var(--lime)' : 'var(--ink)'} stroke="var(--ink)" strokeWidth="1.5" />
+        ))}
+      </svg>
+    );
+  }
+
+  function Dashboard() {
+    return (
+      <section className="section" id="dashboard" style={{paddingTop: 60}}>
+        <div className="container">
+          <div className="section-head center">
+            <span className="section-eyebrow"><span className="dot" /> The Dashboard</span>
+            <h2 className="section-title">Your whole institution<br/>on one screen.</h2>
+            <p className="section-lede">
+              Principals, deans, and admin teams get a single dashboard with real-time KPIs.
+              No more emailing department heads for numbers — just glance.
+            </p>
+          </div>
+
+          <div className="dash-wrap fade-up">
+            <div className="dash-top">
+              <span className="dot" style={{background:'#FF6B6B'}}/>
+              <span className="dot" style={{background:'#FFD86E'}}/>
+              <span className="dot" style={{background:'#8FE388'}}/>
+              <span className="url">🔒 app.eduhubsa.co.za/principal</span>
+            </div>
+            <div className="dash-body">
+              <aside className="dash-side">
+                <div className="side-brand">
+                  <span className="mk">E</span>
+                  EduHubSA
+                </div>
+                <div className="side-section">Overview</div>
+                <SideItem icon="home" label="Dashboard" active />
+                <SideItem icon="bar" label="Reports" />
+                <div className="side-section">Manage</div>
+                <SideItem icon="user" label="Students" badge="12,481" />
+                <SideItem icon="grad" label="Staff" />
+                <SideItem icon="cal" label="Timetables" />
+                <SideItem icon="check" label="Attendance" />
+                <SideItem icon="card" label="Fees &amp; Finance" />
+                <div className="side-section">Comms</div>
+                <SideItem icon="bell" label="Announcements" />
+                <SideItem icon="msg" label="Parent Portal" />
+              </aside>
+
+              <main className="dash-main">
+                <div className="dash-title-row">
+                  <h2 className="dash-h">Good morning, Principal Khumalo <small>· Term 3, Week 6</small></h2>
+                  <span className="dash-pill">● All systems green</span>
+                </div>
+
+                <div className="kpi-row">
+                  <Kpi label="Active learners" value="12,481" delta="+128 this term" />
+                  <Kpi label="Attendance today" value="94.2%" delta="+1.8% vs avg" lime />
+                  <Kpi label="Fees collected" value="R 4.2M" delta="92% of target" />
+                  <Kpi label="Open incidents" value="3" delta="−2 since yesterday" />
+                </div>
+
+                <div className="dash-cards-row">
+                  <div className="dash-panel">
+                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 4}}>
+                      <h4>Attendance · last 14 days</h4>
+                      <span style={{fontSize: 11, color:'var(--muted)', fontWeight:700, textTransform:'uppercase', letterSpacing:'.1em'}}>Live</span>
+                    </div>
+                    <DashChart />
+                  </div>
+
+                  <div className="dash-panel">
+                    <h4>Recent activity</h4>
+                    <Activity who="Mr. Botha" what="marked Maths 10C attendance" when="2m" ico="📋" />
+                    <Activity who="System" what="sent 42 fee reminders" when="14m" ico="💬" />
+                    <Activity who="Mrs. Nkosi" what="published Grade 12 marks" when="1h" ico="📊" />
+                    <Activity who="Admissions" what="received 3 new applications" when="2h" ico="📝" />
+                    <Activity who="System" what="generated Term 3 timetable" when="3h" ico="🗓" />
+                  </div>
+                </div>
+              </main>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Stats ── */
+  function Counter({target}) {
+    const match = target.match(/^([^\d]*)(\d+)(.*)$/);
+    if (!match) return <>{target}</>;
+    const [, pre, numStr, post] = match;
+    const final = parseInt(numStr, 10);
+    const [val, setVal] = React.useState(0);
+    React.useEffect(() => {
+      const start = performance.now();
+      const dur = 1400;
+      let raf;
+      const tick = (t) => {
+        const p = Math.min(1, (t - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setVal(Math.round(final * eased));
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+    }, [final]);
+    return <>{pre}{val}{post}</>;
+  }
+
+  function StatItem({big, label}) {
+    const ref = React.useRef(null);
+    const [shown, setShown] = React.useState(false);
+    React.useEffect(() => {
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) setShown(true); }, {threshold: .4});
+      if (ref.current) io.observe(ref.current);
+      return () => io.disconnect();
+    }, []);
+    return (
+      <div className="stat" ref={ref}>
+        <div className="num">{shown ? <Counter target={big} /> : big.replace(/[0-9]/g, '0')}</div>
+        <div className="lbl">{label}</div>
+      </div>
+    );
+  }
+
+  function Stats() {
+    return (
+      <section className="stats-band">
+        <div className="container">
+          <div className="stats-grid">
+            <StatItem big="120+" label="Institutions running EduHubSA" />
+            <StatItem big="280K" label="Learner records managed daily" />
+            <StatItem big="14hrs" label="Admin saved per week, per school" />
+            <StatItem big="R 0" label="Setup cost — pay only per learner" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Testimonials ── */
+  function Testimonials() {
+    return (
+      <section className="section" id="schools" style={{background: 'var(--bg-2)', borderTop: '1px solid var(--hair)', borderBottom: '1px solid var(--hair)'}}>
+        <div className="container">
+          <div className="section-head center">
+            <span className="section-eyebrow"><span className="dot" /> Loved by principals</span>
+            <h2 className="section-title">Principals sleep better.<br/>Bursars throw fewer hands up.</h2>
+          </div>
+
+          <div className="t-grid">
+            <article className="t-card feat">
+              <div className="t-stars">★★★★★</div>
+              <p className="t-quote">
+                "We replaced four separate systems with EduHubSA in one weekend.
+                Our bursar's office runs with two fewer people now — and
+                parents actually <em>thank</em> us for the WhatsApp updates."
+              </p>
+              <div className="t-author">
+                <div className="av" style={{background: '#fff'}}>NK</div>
+                <div>
+                  <div className="nm">Dr. Nomvula Khumalo</div>
+                  <div className="ro">Principal · Rhodes High, Johannesburg</div>
+                </div>
+              </div>
+            </article>
+
+            <article className="t-card">
+              <div className="t-stars">★★★★★</div>
+              <p className="t-quote">
+                "Setting up our entire matric class on EduHubSA took 40 minutes. The auto-timetable saved me a literal week."
+              </p>
+              <div className="t-author">
+                <div className="av" style={{background: 'var(--peach)'}}>JB</div>
+                <div>
+                  <div className="nm">Johan Botha</div>
+                  <div className="ro">Deputy · Stellenbosch Prep</div>
+                </div>
+              </div>
+            </article>
+
+            <article className="t-card">
+              <div className="t-stars">★★★★★</div>
+              <p className="t-quote">
+                "Fee collection went from 71% to 94% in one term. Parents now pay because they actually understand the invoice."
+              </p>
+              <div className="t-author">
+                <div className="av" style={{background: 'var(--mint)'}}>AS</div>
+                <div>
+                  <div className="nm">Aisha Singh</div>
+                  <div className="ro">Bursar · Durban Academy</div>
+                </div>
+              </div>
+            </article>
+
+            <article className="t-card">
+              <div className="t-stars">★★★★★</div>
+              <p className="t-quote">
+                "Works offline at our Northern Cape campus where signal drops daily. That alone sold us."
+              </p>
+              <div className="t-author">
+                <div className="av" style={{background: 'var(--lilac)'}}>TM</div>
+                <div>
+                  <div className="nm">Tshepo Mahlangu</div>
+                  <div className="ro">IT Lead · Khanya Institute</div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Pricing ── */
+  function toggleStyle(active) {
+    return {
+      border: 'none',
+      background: active ? '#fff' : 'transparent',
+      color: 'var(--ink)',
+      padding: '10px 20px',
+      borderRadius: 999,
+      fontSize: 14,
+      fontWeight: 700,
+      boxShadow: active ? '0 1px 4px rgba(0,0,0,.08), inset 0 0 0 1px var(--ink)' : 'none',
+      transition: 'all .2s ease',
+    };
+  }
+
+  function Plan({name, blurb, price, unit, feats, featured, tag, cta}) {
+    return (
+      <article className={`plan ${featured ? 'featured' : ''}`}>
+        {tag && <span className="plan-tag">{tag}</span>}
+        <h3>{name}</h3>
+        <p className="blurb">{blurb}</p>
+        <div className="price">{price}<span className="unit">{unit}</span></div>
+        <ul className="feat-list">
+          {feats.map((f, i) => <li key={i}>{f}</li>)}
+        </ul>
+        <a className={`btn ${featured ? '' : 'btn-dark'}`} style={featured ? {} : {background:'var(--ink)', color:'var(--bg)'}} href="#">
+          {cta}
+          <span className="btn-arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+      </article>
+    );
+  }
+
+  function Pricing() {
+    const [annual, setAnnual] = React.useState(true);
+    const m = annual ? 0.8 : 1;
+    const fmt = (n) => `R${Math.round(n)}`;
+    return (
+      <section className="section" id="pricing">
+        <div className="container">
+          <div className="section-head center">
+            <span className="section-eyebrow"><span className="dot" /> Pricing</span>
+            <h2 className="section-title">Low cost. Per learner.<br/>No hidden modules.</h2>
+            <p className="section-lede">
+              One price, every feature. No "premium support" upsell, no surprise add-ons.
+              Cancel any time — your data is yours, exportable in one click.
+            </p>
+
+            <div style={{display:'inline-flex', marginTop: 24, background:'var(--bg-2)', border:'1px solid var(--hair)', padding: 4, borderRadius: 999}}>
+              <button onClick={() => setAnnual(false)} style={toggleStyle(!annual)}>Monthly</button>
+              <button onClick={() => setAnnual(true)} style={toggleStyle(annual)}>
+                Annually <span style={{fontSize: 11, marginLeft: 4, color: annual ? 'var(--lime-deep)' : 'var(--ink-2)'}}>−20%</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="pricing-grid">
+            <Plan
+              name="Starter"
+              blurb="For small schools getting organized"
+              price={fmt(12 * m)}
+              unit="/learner / month"
+              feats={[
+                "Up to 500 learners",
+                "Student records & attendance",
+                "Parent SMS notifications",
+                "Basic timetable",
+                "Email support",
+              ]}
+              cta="Start free"
+            />
+            <Plan
+              name="School"
+              blurb="The full system for high schools"
+              price={fmt(22 * m)}
+              unit="/learner / month"
+              featured
+              tag="Most popular"
+              feats={[
+                "Unlimited learners",
+                "Fees, finance & PayShap",
+                "WhatsApp parent portal",
+                "Auto-timetable engine",
+                "Offline-first sync",
+                "Priority support — 1hr SLA",
+              ]}
+              cta="Start 30-day trial"
+            />
+            <Plan
+              name="University"
+              blurb="For tertiary institutions"
+              price="Custom"
+              unit=" — talk to us"
+              feats={[
+                "Faculty & department modules",
+                "LMS integrations (Moodle, Canvas)",
+                "SAQA/NSFAS reporting",
+                "Single sign-on (SAML/OIDC)",
+                "Dedicated success manager",
+                "On-site training & migration",
+              ]}
+              cta="Book a demo"
+            />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── CTA ── */
+  function CTA() {
+    return (
+      <section id="cta" style={{padding: '0 28px'}}>
+        <div className="cta-band">
+          <span className="section-eyebrow" style={{background:'#fff'}}><span className="dot" /> 30-day trial · No credit card</span>
+          <h2 style={{marginTop: 16}}>Ready to ditch the<br/>spreadsheet shuffle?</h2>
+          <p>Set up your institution in under an hour. Import your roster, invite teachers, and run your first attendance roll-call before lunch.</p>
+          <div style={{display:'flex', gap: 14, flexWrap:'wrap'}}>
+            <a className="btn btn-dark" href="#">
+              Start free trial
+              <span className="btn-arrow" style={{background:'var(--lime)', color:'var(--ink)'}}><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+            <a className="btn" style={{background:'#fff'}} href="#">Book a 20-min demo</a>
+          </div>
+
+          <svg className="deco" viewBox="0 0 320 320" fill="none" stroke="var(--ink)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M 40 200 C 80 140, 160 130, 220 180" />
+            <path d="M 220 180 l -10 -4 m 10 4 l -4 -10" />
+            <circle cx="60" cy="100" r="30" />
+            <path d="M 240 70 L 260 90 L 240 110 L 220 90 Z" />
+            <path d="M 280 240 q 10 -14 20 0 t 20 0" />
+            <path d="M 100 280 l 8 -16 l 8 16 l 16 8 l -16 8 l -8 16 l -8 -16 l -16 -8 z" fill="var(--ink)" />
+          </svg>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Footer ── */
+  function Footer() {
+    return (
+      <footer className="footer" id="contact">
+        <div className="container">
+          <div className="foot-grid">
+            <div>
+              <a href="#" className="brand" style={{color:'var(--bg)'}}>
+                <span className="brand-mark" style={{background:'var(--lime)', color:'var(--ink)'}}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 10l9-6 9 6-9 6-9-6z"/>
+                    <path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/>
+                  </svg>
+                </span>
+                eduhubsa
+              </a>
+              <p className="foot-blurb">
+                A calm, low-cost institution management system built in South Africa, for South African schools and universities. POPIA-compliant. Loadshedding-friendly.
+              </p>
+              <div style={{display:'flex', gap: 10}}>
+                {['🐦','💼','📷','▶️'].map((s, i) => (
+                  <a key={i} href="#" style={{
+                    width: 38, height: 38, borderRadius: '50%',
+                    border:'1px solid rgba(250,250,242,.2)',
+                    display:'grid', placeItems:'center',
+                    textDecoration:'none', fontSize: 14,
+                    transition:'all .2s ease',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--lime)'; e.currentTarget.style.borderColor = 'var(--lime)';}}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(250,250,242,.2)';}}>
+                    {s}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h5>Product</h5>
+              <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#">Integrations</a></li>
+                <li><a href="#">Changelog</a></li>
+                <li><a href="#">Roadmap</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5>Resources</h5>
+              <ul>
+                <li><a href="#">Case studies</a></li>
+                <li><a href="#">Help centre</a></li>
+                <li><a href="#">Migration guide</a></li>
+                <li><a href="#">API docs</a></li>
+                <li><a href="#">Blog</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5>Company</h5>
+              <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">POPIA</a></li>
+                <li><a href="#">Status</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="foot-bottom">
+            <div>© 2026 EduHubSA (Pty) Ltd. Made in Johannesburg.</div>
+            <div className="links">
+              <a href="#">Privacy</a>
+              <a href="#">Terms</a>
+              <a href="#">Security</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    );
+  }
+
+  /* ── App ── */
+  function App() {
+    React.useEffect(() => {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+
+      const selectors = [
+        '.section-eyebrow', '.section-title', '.section-lede',
+        '.feature', '.t-card', '.plan', '.kpi', '.dash-panel',
+        '.dash-wrap', '.stat', '.cta-band', '.foot-grid',
+      ];
+      document.querySelectorAll(selectors.join(',')).forEach((el, i) => {
+        if (!el.classList.contains('fade-up')) el.classList.add('fade-up');
+        const idx = [...(el.parentElement?.children || [])].indexOf(el);
+        if (idx >= 0 && idx <= 4) el.classList.add(`d${idx}`);
+        io.observe(el);
+      });
+
+      return () => io.disconnect();
+    }, []);
+
+    return (
+      <>
+        <Nav />
+        <main>
+          <Hero />
+          <Logos />
+          <Features />
+          <Dashboard />
+          <Stats />
+          <Testimonials />
+          <Pricing />
+          <CTA />
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

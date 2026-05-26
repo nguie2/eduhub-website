@@ -119,6 +119,16 @@ button { font: inherit; cursor: pointer; }
 }
 .nav-link:hover::after { width: 100%; }
 
+.nav-burger {
+  display: none;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 0;
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -1102,7 +1112,14 @@ button { font: inherit; cursor: pointer; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
-  .nav-links { display: none; }
+  .nav { height: auto; min-height: 64px; flex-wrap: wrap; padding: 16px 0; }
+  .nav-burger { display: flex; align-items: center; }
+  .nav-cta { display: none; }
+  .nav-links { display: none; order: 10; width: 100%; flex-direction: column; gap: 0; padding: 8px 0 16px; border-top: 1px solid var(--hair); margin-top: 8px; }
+  .nav-links.open { display: flex; }
+  .nav-links .nav-link { padding: 13px 0; border-bottom: 1px solid var(--hair); font-size: 16px; }
+  .nav-links .nav-link:last-child { border-bottom: none; }
+  .nav-links .nav-link::after { display: none; }
   .features-grid, .t-grid, .pricing-grid, .stats-grid { grid-template-columns: 1fr; }
   .feature.big { grid-column: span 1; }
   .kpi-row { grid-template-columns: 1fr 1fr; }
@@ -1125,6 +1142,7 @@ button { font: inherit; cursor: pointer; }
   /* ── Nav ── */
   function Nav() {
     const [scrolled, setScrolled] = React.useState(false);
+    const [menuOpen, setMenuOpen] = React.useState(false);
     React.useEffect(() => {
       const onScroll = () => setScrolled(window.scrollY > 12);
       onScroll();
@@ -1144,14 +1162,20 @@ button { font: inherit; cursor: pointer; }
             </svg>
             eduhub<span style={{color: 'var(--lime-deep)'}}>sa</span>
           </a>
-          <nav className="nav-links">
+          <nav className={`nav-links${menuOpen ? ' open' : ''}`}>
             <a className="nav-link" href="index.html#features">Features</a>
             <a className="nav-link" href="case-studies.html">Case Studies</a>
             <a className="nav-link" href="blog.html">Blog</a>
             <a className="nav-link" href="pricing.html">Pricing</a>
             <a className="nav-link" href="contact.html">Need help?</a>
           </nav>
-          <a className="btn" href="contact.html">Start free trial</a>
+          <a className="btn nav-cta" href="contact.html">Start free trial</a>
+          <button className="nav-burger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
+            {menuOpen
+              ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            }
+          </button>
         </div>
       </header>
     );

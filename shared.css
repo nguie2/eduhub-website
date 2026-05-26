@@ -109,6 +109,16 @@ button { font: inherit; cursor: pointer; }
 }
 .nav-link:hover::after { width: 100%; }
 
+.nav-burger {
+  display: none;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 0;
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -1092,7 +1102,14 @@ button { font: inherit; cursor: pointer; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
-  .nav-links { display: none; }
+  .nav { height: auto; min-height: 64px; flex-wrap: wrap; padding: 16px 0; }
+  .nav-burger { display: flex; align-items: center; }
+  .nav-cta { display: none; }
+  .nav-links { display: none; order: 10; width: 100%; flex-direction: column; gap: 0; padding: 8px 0 16px; border-top: 1px solid var(--hair); margin-top: 8px; }
+  .nav-links.open { display: flex; }
+  .nav-links .nav-link { padding: 13px 0; border-bottom: 1px solid var(--hair); font-size: 16px; }
+  .nav-links .nav-link:last-child { border-bottom: none; }
+  .nav-links .nav-link::after { display: none; }
   .features-grid, .t-grid, .pricing-grid, .stats-grid { grid-template-columns: 1fr; }
   .feature.big { grid-column: span 1; }
   .kpi-row { grid-template-columns: 1fr 1fr; }
@@ -1265,4 +1282,7 @@ button { font: inherit; cursor: pointer; }
   .card-grid-2, .card-grid-3, .road-grid, .metric-band { grid-template-columns: 1fr; }
   .job-card { flex-direction: column; align-items: flex-start; }
   .mig-step { grid-template-columns: 1fr; gap: 8px; }
+  .page-hero { padding: 48px 0 36px; }
+  .page-hero p { font-size: 16px; }
+  .inner-section { padding: 48px 0; }
 }

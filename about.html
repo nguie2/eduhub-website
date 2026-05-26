@@ -120,6 +120,7 @@ button { font: inherit; cursor: pointer; }
 .nav-link:hover::after { width: 100%; }
 
 .nav-burger { display: none; background: none; border: none; padding: 4px; cursor: pointer; color: var(--ink); line-height: 0; }
+.nav-cta-mobile { display: none; }
 
 /* Buttons */
 .btn {
@@ -312,6 +313,8 @@ button { font: inherit; cursor: pointer; }
   .values-grid { grid-template-columns: 1fr 1fr !important; }
 }
 @media (max-width: 640px) {
+  .fade-up { opacity: 1; transform: none; transition: none; }
+
   .nav { height: auto; min-height: 64px; flex-wrap: wrap; padding: 16px 0; }
   .nav-burger { display: flex; align-items: center; }
   .nav-cta { display: none; }
@@ -320,11 +323,20 @@ button { font: inherit; cursor: pointer; }
   .nav-links .nav-link { padding: 13px 0; border-bottom: 1px solid var(--hair); font-size: 16px; }
   .nav-links .nav-link:last-child { border-bottom: none; }
   .nav-links .nav-link::after { display: none; }
+  .nav-links .nav-cta-mobile {
+    display: inline-flex;
+    margin-top: 12px;
+    width: 100%;
+    justify-content: center;
+  }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .cta-band { padding: 48px 28px; }
   .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+  .foot-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
   .container { padding: 0 20px; }
   .values-grid { grid-template-columns: 1fr !important; }
+  .page-hero h1 { font-size: clamp(32px, 8vw, 48px); }
+  .page-hero p { font-size: 16px; max-width: 100%; }
 }
 </style>
 </head>
@@ -376,6 +388,7 @@ button { font: inherit; cursor: pointer; }
             <a className="nav-link" href="/blog.html">Blog</a>
             <a className="nav-link" href="/pricing.html">Pricing</a>
             <a className="nav-link" href="/contact.html">Need help?</a>
+            <a className="btn nav-cta-mobile" href="contact.html">Start free trial</a>
           </nav>
           <a className="btn nav-cta" href="mailto:infos@eduhubsa.online">Start free trial</a>
           <button className="nav-burger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
@@ -531,10 +544,7 @@ button { font: inherit; cursor: pointer; }
             <p style={{fontSize:19, lineHeight:1.65, color:'var(--ink-2)', maxWidth:560, margin:'0 auto 48px'}}>
               We're a small, focused team of engineers and educators. We'd rather ship features than make org charts. You'll reach a human when you email us — not a ticketing system.
             </p>
-            <div style={{
-              display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20,
-              textAlign:'left',
-            }}>
+            <div className="about-team-grid" style={{ textAlign:'left' }}>
               {[
                 {role:'Engineering', desc:'Backend systems, offline sync architecture, and API design. We write boring, reliable code on purpose.'},
                 {role:'Product & Design', desc:'Ex-educators who joined to fix the tools they wished they had. Every screen is reviewed by someone who has run a classroom.'},

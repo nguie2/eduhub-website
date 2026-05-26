@@ -23,7 +23,7 @@ function Page(){
   return(
     <>
       <section className="page-hero"><div className="container"><span className="section-eyebrow"><span className="dot"/>Legal</span><h1 style={{marginTop:14}}>Terms of Service</h1><p>Last updated: 1 May 2026. By using EduHubSA, you agree to these terms. Governed by the laws of the Republic of South Africa.</p></div></section>
-      <section className="inner-section"><div className="container" style={{display:'grid',gridTemplateColumns:'1fr 3fr',gap:56,alignItems:'start'}}>
+      <section className="inner-section"><div className="container layout-sidebar">
         <div style={{position:'sticky',top:100}}><div style={{border:'1.5px solid var(--ink)',borderRadius:14,padding:'20px 18px',background:'#fff'}}><div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'.1em',color:'var(--muted)',marginBottom:12}}>Contents</div>{['Acceptance','The service','Your account','Acceptable use','Payment','Data ownership','Termination','Liability','Governing law','Contact'].map(s=><div key={s} style={{fontSize:14,padding:'6px 0',borderBottom:'1px solid var(--hair)',color:'var(--ink-2)'}}>{s}</div>)}</div></div>
         <div className="prose">
           <h2>1. Acceptance of Terms</h2>

@@ -58,7 +58,7 @@ const studies=[
 function Study({s,rev}){
   return(
     <div style={{border:'1.5px solid var(--ink)',borderRadius:22,overflow:'hidden',marginBottom:32,background:'#fff'}}>
-      <div style={{display:'grid',gridTemplateColumns:rev?'1fr 1.2fr':'1.2fr 1fr'}}>
+      <div className={`case-study-row${rev?' rev':''}`}>
         <div style={{padding:'40px 40px',order:rev?2:1}}>
           <span className="section-eyebrow" style={{marginBottom:20,display:'inline-flex'}}><span className="dot"/>{s.tag}</span>
           <div style={{marginTop:20}}>

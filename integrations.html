@@ -64,7 +64,7 @@ function Page(){
               <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:24}}>
                 <span className={`section-eyebrow ${color}`} style={{background:'transparent',border:'1.5px solid var(--ink)'}}>{name}</span>
               </div>
-              <div className="card-grid-3" style={{gridTemplateColumns:'repeat(4,1fr)'}}>
+              <div className="card-grid-3 int-grid-4">
                 {items.map(({icon,name:n,desc})=>(
                   <div key={n} className="int-card">
                     <div className="int-icon">{icon}</div>

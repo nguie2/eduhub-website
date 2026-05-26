@@ -128,6 +128,7 @@ button { font: inherit; cursor: pointer; }
   color: var(--ink);
   line-height: 0;
 }
+.nav-cta-mobile { display: none; }
 
 /* Buttons */
 .btn {
@@ -1103,7 +1104,8 @@ button { font: inherit; cursor: pointer; }
 
 /* responsive */
 @media (max-width: 960px) {
-  .hero-grid { grid-template-columns: 1fr; }
+  .hero-grid { grid-template-columns: 1fr; min-width: 0; }
+  .hero-left, .hero-right { min-width: 0; max-width: 100%; }
   .hero::before, .hero::after { display: none; }
   .illo { min-height: 380px; margin-top: 30px; overflow: hidden; }
   .features-grid, .t-grid, .pricing-grid, .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -1113,10 +1115,33 @@ button { font: inherit; cursor: pointer; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
+  /* Scroll-reveal must not hide content on mobile */
+  .fade-up { opacity: 1; transform: none; transition: none; }
+
   body { overflow-x: hidden; }
-  .hero { overflow: hidden; }
+  .hero { padding: 36px 0 56px; overflow: visible; }
   .hero::before, .hero::after { display: none; }
-  .illo { display: none; }
+  .hero-grid { min-width: 0; gap: 24px; }
+  .hero-left, .hero-right { min-width: 0; max-width: 100%; }
+  .h1 { font-size: clamp(30px, 9vw, 44px); line-height: 1.05; }
+  .h1 .accent { white-space: normal; }
+  .lede { font-size: 17px; max-width: 100%; }
+
+  .illo {
+    display: block;
+    min-height: 260px;
+    max-height: 340px;
+    aspect-ratio: 1.05/1;
+    margin-top: 8px;
+    overflow: hidden;
+    transform: scale(0.92);
+    transform-origin: top center;
+  }
+  .hero-right { overflow: hidden; }
+  .illo .label { font-size: 18px; }
+  .before-card { font-size: 14px; padding: 14px 12px; }
+  .before-card h4 { font-size: 18px; }
+
   .nav { height: auto; min-height: 64px; flex-wrap: wrap; padding: 16px 0; }
   .nav-burger { display: flex; align-items: center; }
   .nav-cta { display: none; }
@@ -1125,17 +1150,43 @@ button { font: inherit; cursor: pointer; }
   .nav-links .nav-link { padding: 13px 0; border-bottom: 1px solid var(--hair); font-size: 16px; }
   .nav-links .nav-link:last-child { border-bottom: none; }
   .nav-links .nav-link::after { display: none; }
+  .nav-links .nav-cta-mobile {
+    display: inline-flex;
+    margin-top: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cta-row {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 100%;
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--r-2);
+    gap: 8px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .cta-row input { width: 100%; min-width: 0; padding: 10px 0; }
+  .cta-row .suffix { margin-right: 0; align-self: flex-start; padding-left: 4px; }
+  .cta-row .btn { width: 100%; justify-content: center; white-space: normal; }
+
   .features-grid, .t-grid, .pricing-grid, .stats-grid { grid-template-columns: 1fr; }
   .feature.big { grid-column: span 1; }
   .kpi-row { grid-template-columns: 1fr 1fr; }
   .dash-cards-row { grid-template-columns: 1fr; }
+  .dash-top { flex-wrap: wrap; gap: 10px; }
+  .dash-top .search { max-width: 100%; flex: 1 1 100%; }
+  .dash-shell { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .section { padding: 72px 0; }
+  .section-title { font-size: clamp(28px, 7vw, 40px); }
+  .stat-num { font-size: clamp(36px, 9vw, 56px); }
   .cta-band { padding: 48px 28px; }
   .logos-label { display: none; }
+  .logos-marquee { overflow: hidden; }
   .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+  .foot-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
   .container { padding: 0 20px; }
-  .lede { font-size: 17px; }
-  .cta-row { max-width: 100%; }
-  .section { padding: 72px 0; }
 }
 </style>
 </head>
@@ -1176,6 +1227,7 @@ button { font: inherit; cursor: pointer; }
             <a className="nav-link" href="blog.html">Blog</a>
             <a className="nav-link" href="pricing.html">Pricing</a>
             <a className="nav-link" href="contact.html">Need help?</a>
+            <a className="btn nav-cta-mobile" href="contact.html">Start free trial</a>
           </nav>
           <a className="btn nav-cta" href="contact.html">Start free trial</a>
           <button className="nav-burger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
@@ -2039,7 +2091,16 @@ button { font: inherit; cursor: pointer; }
             io.unobserve(e.target);
           }
         });
-      }, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+      }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
+
+      const revealVisible = () => {
+        document.querySelectorAll('.fade-up:not(.in)').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+            el.classList.add('in');
+          }
+        });
+      };
 
       const selectors = [
         '.section-eyebrow', '.section-title', '.section-lede',
@@ -2053,7 +2114,15 @@ button { font: inherit; cursor: pointer; }
         io.observe(el);
       });
 
-      return () => io.disconnect();
+      revealVisible();
+      window.addEventListener('scroll', revealVisible, { passive: true });
+      window.addEventListener('resize', revealVisible, { passive: true });
+
+      return () => {
+        io.disconnect();
+        window.removeEventListener('scroll', revealVisible);
+        window.removeEventListener('resize', revealVisible);
+      };
     }, []);
 
     return (

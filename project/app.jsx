@@ -9,7 +9,16 @@ function App() {
           io.unobserve(e.target);
         }
       });
-    }, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
+
+    const revealVisible = () => {
+      document.querySelectorAll('.fade-up:not(.in)').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+          el.classList.add('in');
+        }
+      });
+    };
 
     // Auto-decorate: all section-eyebrow, .section-title, .section-lede, .feature, .t-card, .plan, .kpi, .dash-panel get fade-up
     const selectors = [
@@ -25,7 +34,15 @@ function App() {
       io.observe(el);
     });
 
-    return () => io.disconnect();
+    revealVisible();
+    window.addEventListener('scroll', revealVisible, { passive: true });
+    window.addEventListener('resize', revealVisible, { passive: true });
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener('scroll', revealVisible);
+      window.removeEventListener('resize', revealVisible);
+    };
   }, []);
 
   return (

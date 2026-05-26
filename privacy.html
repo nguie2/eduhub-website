@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy &amp; POPIA — EduHubSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const NAV_LINKS=[['index.html#features','Features'],['case-studies.html','Case Studies'],['blog.html','Blog'],['pricing.html','Pricing'],['contact.html','Need help?']];
+const FOOT_COLS=[{h:'Product',links:[['index.html#features','Features'],['pricing.html','Pricing'],['integrations.html','Integrations'],['changelog.html','Changelog'],['roadmap.html','Roadmap']]},{h:'Resources',links:[['case-studies.html','Case studies'],['help.html','Help centre'],['migration.html','Migration guide'],['blog.html','Blog'],['mailto:infos@eduhubsa.online','infos@eduhubsa.online']]},{h:'Company',links:[['about.html','About'],['careers.html','Careers'],['contact.html','Contact'],['privacy.html','POPIA & Privacy'],['terms.html','Terms']]}];
+function Nav(){const[s,setS]=React.useState(false);React.useEffect(()=>{const f=()=>setS(window.scrollY>12);f();window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);return(<header className={`nav-wrap ${s?'scrolled':''}`}><div className="container nav"><a href="index.html" className="brand"><span className="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhub<span style={{color:'var(--lime-deep)'}}>sa</span></a><nav className="nav-links">{NAV_LINKS.map(([h,l])=><a key={l} className="nav-link" href={h}>{l}</a>)}</nav><a className="btn" href="contact.html">Start free trial</a></div></header>);}
+function Footer(){return(<footer className="footer"><div className="container"><div className="foot-grid"><div><a href="index.html" className="brand" style={{color:'var(--bg)'}}><span className="brand-mark" style={{background:'var(--lime)',color:'var(--ink)'}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhubsa</a><p className="foot-blurb">POPIA-compliant. Your data, hosted in South Africa.</p></div>{FOOT_COLS.map(({h,links})=><div key={h}><h5>{h}</h5><ul>{links.map(([href,label])=><li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}</div><div className="foot-bottom"><div>© 2026 EduHubSA (Pty) Ltd.</div><div className="links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div></div></div></footer>);}
+
+function Page(){
+  return(
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <span className="section-eyebrow"><span className="dot"/>Legal</span>
+          <h1 style={{marginTop:14}}>Privacy Policy<br/>&amp; POPIA Compliance</h1>
+          <p>Last updated: 1 May 2026. EduHubSA is fully compliant with the Protection of Personal Information Act (POPIA) No. 4 of 2013.</p>
+        </div>
+      </section>
+      <section className="inner-section">
+        <div className="container" style={{display:'grid',gridTemplateColumns:'1fr 3fr',gap:56,alignItems:'start'}}>
+          <div style={{position:'sticky',top:100}}>
+            <div style={{border:'1.5px solid var(--ink)',borderRadius:14,padding:'20px 18px',background:'#fff'}}>
+              <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'.1em',color:'var(--muted)',marginBottom:12}}>Contents</div>
+              {['Who we are','What we collect','How we use data','POPIA rights','Data storage','Third parties','Cookies','Contact us'].map(s=>(
+                <div key={s} style={{fontSize:14,padding:'6px 0',borderBottom:'1px solid var(--hair)',color:'var(--ink-2)'}}>{s}</div>
+              ))}
+            </div>
+          </div>
+          <div className="prose">
+            <h2>Who we are</h2>
+            <p>EduHubSA (Pty) Ltd is a South African company registered in Johannesburg, Gauteng. We operate the institution management platform available at eduhubsa.online and related subdomains. We are the Responsible Party as defined under POPIA.</p>
+            <p>Information Officer contact: <a href="mailto:infos@eduhubsa.online">infos@eduhubsa.online</a></p>
+
+            <h2>What personal information we collect</h2>
+            <p>We collect personal information in two capacities: as a data processor on behalf of institutions (our customers), and as a data controller for our own business operations.</p>
+            <h3>Learner and staff data (processed on behalf of institutions)</h3>
+            <ul><li>Full name, identity number, date of birth</li><li>Academic records, marks, and attendance data</li><li>Contact information for parents and guardians</li><li>Fee and financial records</li><li>Medical information where disclosed by the institution</li></ul>
+            <h3>Account and usage data (our own operations)</h3>
+            <ul><li>Name and email address of institution administrators</li><li>Login activity and access logs</li><li>Support tickets and communications</li><li>Payment information (processed via PCI-compliant third parties)</li></ul>
+
+            <h2>How we use personal information</h2>
+            <p>Learner and staff data is used solely to provide the EduHubSA platform services to the institution. We do not use this data for any other purpose, including advertising or profiling.</p>
+            <p>Account data is used to manage your subscription, provide support, and send service communications. We do not sell personal information to any third party, ever.</p>
+
+            <h2>Your POPIA rights</h2>
+            <p>Under the Protection of Personal Information Act, you have the right to:</p>
+            <ul>
+              <li><strong>Access</strong> — request a copy of the personal information we hold about you</li>
+              <li><strong>Correction</strong> — request that inaccurate information be corrected</li>
+              <li><strong>Deletion</strong> — request that your personal information be deleted (subject to legal retention requirements)</li>
+              <li><strong>Objection</strong> — object to the processing of your personal information</li>
+              <li><strong>Portability</strong> — receive your data in a structured, machine-readable format</li>
+            </ul>
+            <p>To exercise any of these rights, email <a href="mailto:infos@eduhubsa.online">infos@eduhubsa.online</a>. We will respond within 10 business days.</p>
+
+            <h2>Data storage and security</h2>
+            <p>All data is stored in South African data centres located in Johannesburg and Cape Town. We do not transfer personal information outside the Republic of South Africa without appropriate safeguards in place.</p>
+            <p>Data is encrypted at rest (AES-256) and in transit (TLS 1.3). Access is restricted by role, and all access is logged and auditable. See our <a href="security.html">Security page</a> for technical details.</p>
+
+            <h2>Third-party processors</h2>
+            <p>We use a small number of trusted sub-processors to deliver our service, including cloud infrastructure, SMS gateways, and payment processing. All sub-processors are bound by data processing agreements and are POPIA-compliant. A full list is available on request.</p>
+
+            <h2>Cookies</h2>
+            <p>Our website uses essential cookies only — to maintain your session and remember your preferences. We do not use tracking, advertising, or analytics cookies. You can disable cookies in your browser settings; this may affect some functionality.</p>
+
+            <h2>Contact us</h2>
+            <p>For any privacy-related queries, to exercise your POPIA rights, or to report a concern:</p>
+            <ul><li>Email: <a href="mailto:infos@eduhubsa.online">infos@eduhubsa.online</a></li><li>Subject line: "Privacy / POPIA enquiry"</li><li>We respond within 10 business days</li></ul>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+function App(){return(<><Nav/><main><Page/></main><Footer/></>);}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

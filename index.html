@@ -1145,13 +1145,13 @@ button { font: inherit; cursor: pointer; }
             eduhub<span style={{color: 'var(--lime-deep)'}}>sa</span>
           </a>
           <nav className="nav-links">
-            <a className="nav-link" href="#features">Features</a>
-            <a className="nav-link" href="#schools">Case Studies</a>
-            <a className="nav-link" href="#blog">Blog</a>
-            <a className="nav-link" href="#pricing">Pricing</a>
-            <a className="nav-link" href="#contact">Need help?</a>
+            <a className="nav-link" href="index.html#features">Features</a>
+            <a className="nav-link" href="case-studies.html">Case Studies</a>
+            <a className="nav-link" href="blog.html">Blog</a>
+            <a className="nav-link" href="pricing.html">Pricing</a>
+            <a className="nav-link" href="contact.html">Need help?</a>
           </nav>
-          <a className="btn" href="#cta">Start free trial</a>
+          <a className="btn" href="contact.html">Start free trial</a>
         </div>
       </header>
     );
@@ -1192,11 +1192,11 @@ button { font: inherit; cursor: pointer; }
           <div className="browser">
             <div className="browser-bar">
               <span className="dot r" /><span className="dot y" /><span className="dot g" />
-              <span className="url">app.eduhubsa.co.za/dashboard</span>
+              <span className="url">app.eduhubsa.online/dashboard</span>
             </div>
             <div className="browser-body">
               <div className="dash-card lime">
-                <span>RHODES HIGH · TERM 3</span>
+                <span>GREENFIELD HIGH · TERM 3</span>
                 <div className="pills">
                   <span>STUDENTS</span><span>FEES</span><span>CLASSES</span><span>STAFF</span>
                 </div>
@@ -1305,7 +1305,7 @@ button { font: inherit; cursor: pointer; }
               — built for South African universities &amp; high schools.
             </p>
 
-            <form className="cta-row fade-up d4 in" onSubmit={(e) => { e.preventDefault(); alert('Thanks! We\'ll be in touch at ' + (domain || 'your-school') + '.edu.za'); }}>
+            <form className="cta-row fade-up d4 in" onSubmit={(e) => { e.preventDefault(); window.location.href = 'mailto:infos@eduhubsa.online?subject=Free trial — ' + (domain || 'my-school') + '.edu.za'; }}>
               <input
                 type="text"
                 placeholder="your-school"
@@ -1340,9 +1340,9 @@ button { font: inherit; cursor: pointer; }
   /* ── Logos ── */
   function Logos() {
     const items = [
-      'Cape High', 'Stellenbosch Prep', 'UCT Faculty', 'Pretoria College',
-      'Durban Academy', 'Khanya Institute', 'Northcliff High', 'Gauteng University',
-      'Bloemfontein College', 'Western Cape Tech',
+      'Secondary School · Gauteng', 'Prep School · Western Cape', 'TVET College · KZN', 'High School · Pretoria',
+      'Academy · Durban', 'Institute · Limpopo', 'High School · Johannesburg', 'University · Ekurhuleni',
+      'College · Free State', 'Technical School · Cape Town',
     ];
     const Item = ({name, i}) => (
       <div key={i}>
@@ -1612,7 +1612,7 @@ button { font: inherit; cursor: pointer; }
               <span className="dot" style={{background:'#FF6B6B'}}/>
               <span className="dot" style={{background:'#FFD86E'}}/>
               <span className="dot" style={{background:'#8FE388'}}/>
-              <span className="url">🔒 app.eduhubsa.co.za/principal</span>
+              <span className="url">🔒 app.eduhubsa.online/principal</span>
             </div>
             <div className="dash-body">
               <aside className="dash-side">
@@ -1748,8 +1748,8 @@ button { font: inherit; cursor: pointer; }
               <div className="t-author">
                 <div className="av" style={{background: '#fff'}}>NK</div>
                 <div>
-                  <div className="nm">Dr. Nomvula Khumalo</div>
-                  <div className="ro">Principal · Rhodes High, Johannesburg</div>
+                  <div className="nm">Dr. Nomvula K.</div>
+                  <div className="ro">Principal · High school, Johannesburg</div>
                 </div>
               </div>
             </article>
@@ -1762,8 +1762,8 @@ button { font: inherit; cursor: pointer; }
               <div className="t-author">
                 <div className="av" style={{background: 'var(--peach)'}}>JB</div>
                 <div>
-                  <div className="nm">Johan Botha</div>
-                  <div className="ro">Deputy · Stellenbosch Prep</div>
+                  <div className="nm">Johan B.</div>
+                  <div className="ro">Deputy Principal · Preparatory school, Western Cape</div>
                 </div>
               </div>
             </article>
@@ -1776,8 +1776,8 @@ button { font: inherit; cursor: pointer; }
               <div className="t-author">
                 <div className="av" style={{background: 'var(--mint)'}}>AS</div>
                 <div>
-                  <div className="nm">Aisha Singh</div>
-                  <div className="ro">Bursar · Durban Academy</div>
+                  <div className="nm">Aisha S.</div>
+                  <div className="ro">Bursar · Private academy, KwaZulu-Natal</div>
                 </div>
               </div>
             </article>
@@ -1790,8 +1790,8 @@ button { font: inherit; cursor: pointer; }
               <div className="t-author">
                 <div className="av" style={{background: 'var(--lilac)'}}>TM</div>
                 <div>
-                  <div className="nm">Tshepo Mahlangu</div>
-                  <div className="ro">IT Lead · Khanya Institute</div>
+                  <div className="nm">Tshepo M.</div>
+                  <div className="ro">IT Lead · Community institute, Northern Cape</div>
                 </div>
               </div>
             </article>
@@ -1802,31 +1802,17 @@ button { font: inherit; cursor: pointer; }
   }
 
   /* ── Pricing ── */
-  function toggleStyle(active) {
-    return {
-      border: 'none',
-      background: active ? '#fff' : 'transparent',
-      color: 'var(--ink)',
-      padding: '10px 20px',
-      borderRadius: 999,
-      fontSize: 14,
-      fontWeight: 700,
-      boxShadow: active ? '0 1px 4px rgba(0,0,0,.08), inset 0 0 0 1px var(--ink)' : 'none',
-      transition: 'all .2s ease',
-    };
-  }
-
-  function Plan({name, blurb, price, unit, feats, featured, tag, cta}) {
+  function Plan({name, blurb, feats, featured, tag, cta}) {
     return (
       <article className={`plan ${featured ? 'featured' : ''}`}>
         {tag && <span className="plan-tag">{tag}</span>}
         <h3>{name}</h3>
         <p className="blurb">{blurb}</p>
-        <div className="price">{price}<span className="unit">{unit}</span></div>
+        <div style={{margin: '18px 0 2px', fontSize: 15, fontWeight: 700, color: featured ? 'rgba(250,250,242,.6)' : 'var(--muted)', letterSpacing: '-.01em'}}>Pricing on request</div>
         <ul className="feat-list">
           {feats.map((f, i) => <li key={i}>{f}</li>)}
         </ul>
-        <a className={`btn ${featured ? '' : 'btn-dark'}`} style={featured ? {} : {background:'var(--ink)', color:'var(--bg)'}} href="#">
+        <a className={`btn ${featured ? '' : 'btn-dark'}`} style={featured ? {} : {background:'var(--ink)', color:'var(--bg)'}} href="mailto:infos@eduhubsa.online">
           {cta}
           <span className="btn-arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </a>
@@ -1835,34 +1821,26 @@ button { font: inherit; cursor: pointer; }
   }
 
   function Pricing() {
-    const [annual, setAnnual] = React.useState(true);
-    const m = annual ? 0.8 : 1;
-    const fmt = (n) => `R${Math.round(n)}`;
     return (
       <section className="section" id="pricing">
         <div className="container">
           <div className="section-head center">
             <span className="section-eyebrow"><span className="dot" /> Pricing</span>
-            <h2 className="section-title">Low cost. Per learner.<br/>No hidden modules.</h2>
+            <h2 className="section-title">Simple plans,<br/>transparent value.</h2>
             <p className="section-lede">
-              One price, every feature. No "premium support" upsell, no surprise add-ons.
-              Cancel any time — your data is yours, exportable in one click.
+              We tailor pricing to your institution's size and needs — no hidden modules, no surprise add-ons.
+              Your data is always yours, exportable in one click.
             </p>
-
-            <div style={{display:'inline-flex', marginTop: 24, background:'var(--bg-2)', border:'1px solid var(--hair)', padding: 4, borderRadius: 999}}>
-              <button onClick={() => setAnnual(false)} style={toggleStyle(!annual)}>Monthly</button>
-              <button onClick={() => setAnnual(true)} style={toggleStyle(annual)}>
-                Annually <span style={{fontSize: 11, marginLeft: 4, color: annual ? 'var(--lime-deep)' : 'var(--ink-2)'}}>−20%</span>
-              </button>
+            <div style={{marginTop: 24, display:'inline-flex', alignItems:'center', gap: 10, background:'var(--bg-2)', border:'1.5px solid var(--ink)', padding:'12px 22px', borderRadius: 999, boxShadow:'3px 3px 0 var(--ink)'}}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span style={{fontSize: 15, fontWeight: 700}}>Get a quote: <a href="mailto:infos@eduhubsa.online" style={{fontWeight:800, borderBottom:'1.5px solid var(--ink)'}}>infos@eduhubsa.online</a></span>
             </div>
           </div>
 
           <div className="pricing-grid">
             <Plan
               name="Starter"
-              blurb="For small schools getting organized"
-              price={fmt(12 * m)}
-              unit="/learner / month"
+              blurb="For small schools getting organised"
               feats={[
                 "Up to 500 learners",
                 "Student records & attendance",
@@ -1870,13 +1848,11 @@ button { font: inherit; cursor: pointer; }
                 "Basic timetable",
                 "Email support",
               ]}
-              cta="Start free"
+              cta="Request a quote"
             />
             <Plan
               name="School"
               blurb="The full system for high schools"
-              price={fmt(22 * m)}
-              unit="/learner / month"
               featured
               tag="Most popular"
               feats={[
@@ -1892,8 +1868,6 @@ button { font: inherit; cursor: pointer; }
             <Plan
               name="University"
               blurb="For tertiary institutions"
-              price="Custom"
-              unit=" — talk to us"
               feats={[
                 "Faculty & department modules",
                 "LMS integrations (Moodle, Canvas)",
@@ -1919,11 +1893,11 @@ button { font: inherit; cursor: pointer; }
           <h2 style={{marginTop: 16}}>Ready to ditch the<br/>spreadsheet shuffle?</h2>
           <p>Set up your institution in under an hour. Import your roster, invite teachers, and run your first attendance roll-call before lunch.</p>
           <div style={{display:'flex', gap: 14, flexWrap:'wrap'}}>
-            <a className="btn btn-dark" href="#">
+            <a className="btn btn-dark" href="contact.html">
               Start free trial
               <span className="btn-arrow" style={{background:'var(--lime)', color:'var(--ink)'}}><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
             </a>
-            <a className="btn" style={{background:'#fff'}} href="#">Book a 20-min demo</a>
+            <a className="btn" style={{background:'#fff'}} href="contact.html">Book a 20-min demo</a>
           </div>
 
           <svg className="deco" viewBox="0 0 320 320" fill="none" stroke="var(--ink)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1959,17 +1933,22 @@ button { font: inherit; cursor: pointer; }
                 A calm, low-cost institution management system built in South Africa, for South African schools and universities. POPIA-compliant. Loadshedding-friendly.
               </p>
               <div style={{display:'flex', gap: 10}}>
-                {['🐦','💼','📷','▶️'].map((s, i) => (
-                  <a key={i} href="#" style={{
+                {[
+                  { label: 'X', href: '#', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
+                  { label: 'LinkedIn', href: '#', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg> },
+                  { label: 'Instagram', href: '#', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> },
+                  { label: 'YouTube', href: '#', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="var(--bg)"/></svg> },
+                ].map(({label, href, icon}) => (
+                  <a key={label} href={href} aria-label={label} style={{
                     width: 38, height: 38, borderRadius: '50%',
                     border:'1px solid rgba(250,250,242,.2)',
                     display:'grid', placeItems:'center',
-                    textDecoration:'none', fontSize: 14,
+                    color: 'var(--bg)',
                     transition:'all .2s ease',
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--lime)'; e.currentTarget.style.borderColor = 'var(--lime)';}}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(250,250,242,.2)';}}>
-                    {s}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--lime)'; e.currentTarget.style.borderColor = 'var(--lime)'; e.currentTarget.style.color = 'var(--ink)';}}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(250,250,242,.2)'; e.currentTarget.style.color = 'var(--bg)';}}>
+                    {icon}
                   </a>
                 ))}
               </div>
@@ -1977,40 +1956,40 @@ button { font: inherit; cursor: pointer; }
             <div>
               <h5>Product</h5>
               <ul>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#">Integrations</a></li>
-                <li><a href="#">Changelog</a></li>
-                <li><a href="#">Roadmap</a></li>
+                <li><a href="/features.html">Features</a></li>
+                <li><a href="/pricing.html">Pricing</a></li>
+                <li><a href="/integrations.html">Integrations</a></li>
+                <li><a href="/changelog.html">Changelog</a></li>
+                <li><a href="/roadmap.html">Roadmap</a></li>
               </ul>
             </div>
             <div>
               <h5>Resources</h5>
               <ul>
-                <li><a href="#">Case studies</a></li>
-                <li><a href="#">Help centre</a></li>
-                <li><a href="#">Migration guide</a></li>
-                <li><a href="#">API docs</a></li>
-                <li><a href="#">Blog</a></li>
+                <li><a href="/case-studies.html">Case studies</a></li>
+                <li><a href="/help.html">Help centre</a></li>
+                <li><a href="/migration.html">Migration guide</a></li>
+                <li><a href="/blog.html">Blog</a></li>
+                <li><a href="mailto:infos@eduhubsa.online">infos@eduhubsa.online</a></li>
               </ul>
             </div>
             <div>
               <h5>Company</h5>
               <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">POPIA</a></li>
-                <li><a href="#">Status</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/careers.html">Careers</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/privacy.html">POPIA &amp; Privacy</a></li>
+                <li><a href="/terms.html">Terms</a></li>
               </ul>
             </div>
           </div>
           <div className="foot-bottom">
             <div>© 2026 EduHubSA (Pty) Ltd. Made in Johannesburg.</div>
             <div className="links">
-              <a href="#">Privacy</a>
-              <a href="#">Terms</a>
-              <a href="#">Security</a>
+              <a href="privacy.html">Privacy</a>
+              <a href="terms.html">Terms</a>
+              <a href="security.html">Security</a>
             </div>
           </div>
         </div>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Case Studies — EduHubSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const NAV_LINKS=[['index.html#features','Features'],['case-studies.html','Case Studies'],['blog.html','Blog'],['pricing.html','Pricing'],['contact.html','Need help?']];
+const FOOT_COLS=[{h:'Product',links:[['index.html#features','Features'],['pricing.html','Pricing'],['integrations.html','Integrations'],['changelog.html','Changelog'],['roadmap.html','Roadmap']]},{h:'Resources',links:[['case-studies.html','Case studies'],['help.html','Help centre'],['migration.html','Migration guide'],['blog.html','Blog'],['mailto:infos@eduhubsa.online','infos@eduhubsa.online']]},{h:'Company',links:[['about.html','About'],['careers.html','Careers'],['contact.html','Contact'],['privacy.html','POPIA & Privacy'],['terms.html','Terms']]}];
+function Nav(){const[s,setS]=React.useState(false);React.useEffect(()=>{const f=()=>setS(window.scrollY>12);f();window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);return(<header className={`nav-wrap ${s?'scrolled':''}`}><div className="container nav"><a href="index.html" className="brand"><span className="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhub<span style={{color:'var(--lime-deep)'}}>sa</span></a><nav className="nav-links">{NAV_LINKS.map(([h,l])=><a key={l} className="nav-link" href={h}>{l}</a>)}</nav><a className="btn" href="contact.html">Start free trial</a></div></header>);}
+function Footer(){return(<footer className="footer"><div className="container"><div className="foot-grid"><div><a href="index.html" className="brand" style={{color:'var(--bg)'}}><span className="brand-mark" style={{background:'var(--lime)',color:'var(--ink)'}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhubsa</a><p className="foot-blurb">A calm, low-cost institution management system built in South Africa. POPIA-compliant. Loadshedding-friendly.</p></div>{FOOT_COLS.map(({h,links})=><div key={h}><h5>{h}</h5><ul>{links.map(([href,label])=><li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}</div><div className="foot-bottom"><div>© 2026 EduHubSA (Pty) Ltd. Made in Johannesburg.</div><div className="links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div></div></div></footer>);}
+
+const studies=[
+  {
+    tag:'Secondary School · Gauteng',color:'bg-lime',
+    challenge:'A public secondary school with 1,800 learners was managing attendance on paper registers, fees via manual bank reconciliation, and parent communication through an opt-in WhatsApp group. The admin team of three was spending 60% of their time on data entry.',
+    solution:'EduHubSA replaced four disconnected tools in a single weekend migration. Data import took six hours; staff training took one afternoon. The school went live on a Monday.',
+    metrics:[{v:'71%→94%',l:'Fee collection rate after one term'},{v:'14hrs',l:'Admin time saved per week'},{v:'2 days',l:'Time to full deployment'}],
+    quote:'"Our bursar\'s office now runs without the after-hours panic. Parents actually thank us for the WhatsApp fee reminders."',
+    role:'Principal'
+  },
+  {
+    tag:'TVET College · KwaZulu-Natal',color:'bg-mint',
+    challenge:'A technical and vocational training college with 4,200 students across three campuses struggled to unify student records, timetables, and lecturer attendance. Each campus had its own spreadsheet system, making cross-campus reporting impossible.',
+    solution:'EduHubSA\'s multi-campus module was configured over three weeks. Data from all three campuses was merged, duplicate learner records resolved, and a unified timetable engine deployed.',
+    metrics:[{v:'3→1',l:'Systems consolidated'},{v:'40min',l:'Cross-campus report generation (was 3 days)'},{v:'99.8%',l:'System uptime across all campuses'}],
+    quote:'"For the first time, our principal can see all three campuses\' attendance from one screen. That was unthinkable before."',
+    role:'IT Administrator'
+  },
+  {
+    tag:'Independent High School · Western Cape',color:'bg-cream',
+    challenge:'A fee-paying independent school needed to modernise its parent communication without changing its high-touch culture. Existing fee statements were confusing parents and driving late payments.',
+    solution:'The school deployed EduHubSA\'s parent portal and automated fee statements in English and Afrikaans. WhatsApp reminders were personalised per family.',
+    metrics:[{v:'+23%',l:'On-time fee payments in first term'},{v:'4 langs',l:'Parent communications sent in'},{v:'0 calls',l:'Monthly "what do I owe?" calls to bursary'}],
+    quote:'"Parents used to call every week asking about their balance. Now they check the app. Our bursar actually has time to do her job."',
+    role:'Bursar'
+  },
+  {
+    tag:'Rural Community School · Northern Cape',color:'bg-lilac',
+    challenge:'A rural community school faced daily loadshedding of up to 8 hours, intermittent mobile data, and a teaching staff unfamiliar with digital tools. The school had 340 learners and one admin clerk.',
+    solution:'EduHubSA\'s offline-first mode was configured for the school\'s infrastructure. Teachers used the mobile app for attendance — data synced automatically when connectivity returned.',
+    metrics:[{v:'100%',l:'Attendance captured despite loadshedding'},{v:'4MB',l:'Mobile app size on teachers\' phones'},{v:'1 clerk',l:'Admin team — same as before, far less stress'}],
+    quote:'"We didn\'t think a system like this could work here. The offline mode changed everything. Signal or no signal — it just works."',
+    role:'IT Lead'
+  },
+];
+
+function Study({s,rev}){
+  return(
+    <div style={{border:'1.5px solid var(--ink)',borderRadius:22,overflow:'hidden',marginBottom:32,background:'#fff'}}>
+      <div style={{display:'grid',gridTemplateColumns:rev?'1fr 1.2fr':'1.2fr 1fr'}}>
+        <div style={{padding:'40px 40px',order:rev?2:1}}>
+          <span className="section-eyebrow" style={{marginBottom:20,display:'inline-flex'}}><span className="dot"/>{s.tag}</span>
+          <div style={{marginTop:20}}>
+            <h3 style={{fontSize:13,fontWeight:700,textTransform:'uppercase',letterSpacing:'.1em',color:'var(--muted)',margin:'0 0 8px'}}>The challenge</h3>
+            <p style={{fontSize:15,color:'var(--ink-2)',lineHeight:1.65,margin:'0 0 22px'}}>{s.challenge}</p>
+            <h3 style={{fontSize:13,fontWeight:700,textTransform:'uppercase',letterSpacing:'.1em',color:'var(--muted)',margin:'0 0 8px'}}>The solution</h3>
+            <p style={{fontSize:15,color:'var(--ink-2)',lineHeight:1.65,margin:0}}>{s.solution}</p>
+          </div>
+        </div>
+        <div className={`feature ${s.color}`} style={{padding:'40px',borderRadius:0,minHeight:'auto',order:rev?1:2}}>
+          <div className="metric-band" style={{margin:'0 0 24px',gridTemplateColumns:'1fr',gap:20,padding:'24px'}}>
+            {s.metrics.map(({v,l})=>(
+              <div key={l}>
+                <div className="metric-val">{v}</div>
+                <div className="metric-lbl">{l}</div>
+              </div>
+            ))}
+          </div>
+          <blockquote style={{fontFamily:'var(--font-hand)',fontSize:22,lineHeight:1.4,margin:'0 0 12px',fontStyle:'italic'}}>
+            {s.quote}
+          </blockquote>
+          <div style={{fontSize:13,fontWeight:700,color:'var(--ink-2)'}}>{s.role} · {s.tag}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Page(){
+  return(
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <span className="section-eyebrow"><span className="dot"/>Real results</span>
+          <h1 style={{marginTop:14}}>How SA institutions<br/>got their time back.</h1>
+          <p>Four stories from schools and colleges across South Africa — different sizes, different provinces, one outcome: less chaos, more teaching.</p>
+        </div>
+      </section>
+      <section className="inner-section">
+        <div className="container">
+          {studies.map((s,i)=><Study key={i} s={s} rev={i%2!==0}/>)}
+        </div>
+      </section>
+      <section style={{background:'var(--lime)',borderTop:'1.5px solid var(--ink)',padding:'72px 0'}}>
+        <div className="container" style={{textAlign:'center'}}>
+          <h2 style={{fontSize:40,fontWeight:800,letterSpacing:'-.03em',margin:'0 0 12px'}}>Your institution could be next.</h2>
+          <p style={{fontSize:18,color:'var(--ink-2)',maxWidth:'50ch',margin:'0 auto 28px'}}>30-day trial, no credit card, full support from day one.</p>
+          <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap'}}>
+            <a className="btn btn-dark" href="contact.html">Start free trial</a>
+            <a className="btn" style={{background:'#fff'}} href="contact.html">Book a demo</a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+function App(){
+  React.useEffect(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.section-eyebrow,.section-title').forEach(el=>{el.classList.add('fade-up');io.observe(el);});return()=>io.disconnect();},[]);
+  return(<><Nav/><main><Page/></main><Footer/></>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About EduHubSA — Built in South Africa, for South Africa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #FAFAF2;
+  --bg-2: #F2F1E6;
+  --ink: #0E0E0C;
+  --ink-2: #2C2C28;
+  --muted: #6B6B62;
+  --line: #1a1a17;
+  --hair: rgba(14,14,12,.10);
+
+  --lime: #C8F23A;
+  --lime-2: #B0E51A;
+  --lime-deep: #82B007;
+  --mint: #BFE9C5;
+  --pine: #2F6B3C;
+  --grass: #4FA661;
+  --lilac: #C8B8F0;
+  --peach: #F8C9A1;
+  --cream: #F5E7C8;
+
+  --r-1: 8px;
+  --r-2: 14px;
+  --r-3: 22px;
+  --r-pill: 999px;
+
+  --shadow-sm: 0 1px 0 rgba(14,14,12,.06), 0 2px 6px rgba(14,14,12,.04);
+  --shadow-md: 0 8px 24px -10px rgba(14,14,12,.18);
+  --shadow-card: 0 22px 40px -20px rgba(14,14,12,.25);
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ---------- Nav ---------- */
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in oklab, var(--bg) 92%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .25s ease, background .25s ease;
+}
+.nav-wrap.scrolled { border-bottom-color: var(--hair); }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -.02em;
+}
+.brand-mark {
+  width: 34px; height: 34px;
+  background: var(--ink);
+  border-radius: 9px;
+  display: grid; place-items: center;
+  color: var(--lime);
+  transform: rotate(-6deg);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.brand:hover .brand-mark { transform: rotate(6deg) scale(1.06); }
+.brand-mark svg { width: 18px; height: 18px; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+.nav-link {
+  font-weight: 500;
+  font-size: 15.5px;
+  color: var(--ink);
+  position: relative;
+  padding: 6px 0;
+}
+.nav-link::after {
+  content: "";
+  position: absolute; left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: var(--ink);
+  transition: width .3s cubic-bezier(.2,.8,.2,1);
+}
+.nav-link:hover::after { width: 100%; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid var(--ink);
+  background: var(--lime);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: var(--r-pill);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); background: var(--lime-2); }
+.btn:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--ink); }
+.btn-ghost {
+  background: transparent;
+  box-shadow: none;
+}
+.btn-ghost:hover { background: var(--bg-2); box-shadow: none; transform: none; }
+.btn-dark {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.btn-dark:hover { background: #1f1f1c; box-shadow: 5px 5px 0 rgba(14,14,12,.4); }
+
+.btn-arrow {
+  display: inline-grid; place-items: center;
+  width: 22px; height: 22px;
+  background: var(--ink); color: var(--lime);
+  border-radius: 50%;
+  transition: transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.btn:hover .btn-arrow { transform: translateX(3px) rotate(45deg); }
+.btn-dark .btn-arrow { background: var(--lime); color: var(--ink); }
+
+/* fade-up base */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+.fade-up.in { opacity: 1; transform: translateY(0); }
+.fade-up.d1 { transition-delay: .1s; }
+.fade-up.d2 { transition-delay: .2s; }
+.fade-up.d3 { transition-delay: .35s; }
+.fade-up.d4 { transition-delay: .5s; }
+.fade-up.d5 { transition-delay: .65s; }
+
+/* ---------- Section header ---------- */
+.section { padding: 120px 0; position: relative; }
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--ink-2);
+  background: var(--bg-2);
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hair);
+}
+.section-eyebrow .dot { width: 7px; height: 7px; background: var(--lime-deep); border-radius: 50%; }
+.section-title {
+  font-size: clamp(36px, 4.6vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -.03em;
+  font-weight: 800;
+  margin: 18px 0 16px;
+  max-width: 18ch;
+}
+.section-lede {
+  font-size: 18px;
+  color: var(--ink-2);
+  max-width: 56ch;
+  line-height: 1.55;
+  margin: 0;
+}
+.section-head { margin-bottom: 56px; }
+.section-head.center { text-align: center; }
+.section-head.center .section-title,
+.section-head.center .section-lede { margin-left: auto; margin-right: auto; }
+
+/* ---------- Stats band ---------- */
+.stats-band {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+}
+.stat .num {
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--lime);
+}
+.stat .lbl {
+  font-size: 15px;
+  margin-top: 8px;
+  color: rgba(250,250,242,.8);
+}
+.stats-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(200,242,58,.08), transparent 40%),
+                    radial-gradient(circle at 80% 60%, rgba(200,242,58,.06), transparent 40%);
+}
+
+/* ---------- CTA band ---------- */
+.cta-band {
+  background: var(--lime);
+  border-radius: 28px;
+  padding: 72px 56px;
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid var(--ink);
+  margin: 80px auto 120px;
+  max-width: 1180px;
+}
+.cta-band h2 {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin: 0 0 14px;
+  max-width: 16ch;
+}
+.cta-band p { font-size: 18px; max-width: 50ch; margin: 0 0 28px; color: var(--ink-2); }
+.cta-band .deco {
+  position: absolute;
+  right: -40px;
+  bottom: -40px;
+  width: 320px;
+  height: 320px;
+  opacity: .5;
+  pointer-events: none;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 80px 0 40px;
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(3, 1fr);
+  gap: 48px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid rgba(250,250,242,.1);
+}
+.foot-grid h5 {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: .14em;
+  font-weight: 700;
+  color: rgba(250,250,242,.6);
+  margin: 0 0 16px;
+}
+.foot-grid ul { list-style: none; padding: 0; margin: 0; }
+.foot-grid li { margin-bottom: 12px; font-size: 15px; opacity: .9; }
+.foot-grid li a:hover { color: var(--lime); }
+.foot-blurb { font-size: 15px; color: rgba(250,250,242,.7); max-width: 38ch; margin: 14px 0 22px; line-height: 1.5; }
+.foot-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 28px;
+  font-size: 13px;
+  color: rgba(250,250,242,.55);
+}
+.foot-bottom .links { display: flex; gap: 22px; }
+
+/* responsive */
+@media (max-width: 960px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .mission-grid { grid-template-columns: 1fr !important; }
+  .values-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .cta-band { padding: 48px 28px; }
+  .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+  .container { padding: 0 20px; }
+  .values-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel">
+  const GradCap = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 10l9-6 9 6-9 6-9-6z" />
+      <path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5" />
+    </svg>
+  );
+
+  const ArrowIcon = () => (
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
+    </svg>
+  );
+
+  /* ── Nav ── */
+  function Nav() {
+    const [scrolled, setScrolled] = React.useState(false);
+    React.useEffect(() => {
+      const onScroll = () => setScrolled(window.scrollY > 12);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    return (
+      <header className={`nav-wrap ${scrolled ? 'scrolled' : ''}`}>
+        <div className="container nav">
+          <a href="/" className="brand">
+            <span className="brand-mark">
+              <GradCap />
+            </span>
+            eduhub<span style={{color: 'var(--lime-deep)'}}>sa</span>
+          </a>
+          <nav className="nav-links">
+            <a className="nav-link" href="/features.html">Features</a>
+            <a className="nav-link" href="/case-studies.html">Case Studies</a>
+            <a className="nav-link" href="/blog.html">Blog</a>
+            <a className="nav-link" href="/pricing.html">Pricing</a>
+            <a className="nav-link" href="/contact.html">Need help?</a>
+          </nav>
+          <a className="btn" href="mailto:infos@eduhubsa.online">Start free trial</a>
+        </div>
+      </header>
+    );
+  }
+
+  /* ── Hero ── */
+  function Hero() {
+    return (
+      <section style={{
+        position: 'relative',
+        padding: '80px 0 100px',
+        borderBottom: '1px solid var(--hair)',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: 'radial-gradient(circle at 70% 50%, rgba(200,242,58,.13), transparent 55%)',
+          pointerEvents: 'none',
+        }} />
+        <div className="container">
+          <div style={{maxWidth: 800}}>
+            <span className="section-eyebrow fade-up in">
+              <span className="dot" /> About EduHubSA
+            </span>
+            <h1 style={{
+              fontSize: 'clamp(48px, 7vw, 88px)',
+              lineHeight: .95,
+              letterSpacing: '-.04em',
+              fontWeight: 800,
+              margin: '22px 0 28px',
+            }} className="fade-up d1 in">
+              We're building the{' '}
+              <span style={{position:'relative', display:'inline-block'}}>
+                infrastructure
+                <span style={{
+                  position:'absolute', left:'-2%', right:'-2%', bottom: 6,
+                  height: 14, background: 'var(--lime)',
+                  zIndex: -1, borderRadius: 4,
+                  transformOrigin: 'left center',
+                  animation: 'drawUnderline 1s cubic-bezier(.2,.8,.2,1) .6s both',
+                }}/>
+              </span>
+              {' '}for African education.
+            </h1>
+            <p style={{
+              fontSize: 20,
+              lineHeight: 1.6,
+              color: 'var(--ink-2)',
+              maxWidth: 620,
+              margin: 0,
+            }} className="fade-up d2 in">
+              EduHubSA is a Johannesburg-based SaaS team on a simple mission: make institution management so affordable and so easy that every South African school — urban or rural, 80 learners or 80,000 — can run with the same confidence as the best-resourced campuses in the world.
+            </p>
+            <div style={{display:'flex', gap:14, marginTop:36, flexWrap:'wrap'}} className="fade-up d3 in">
+              <a className="btn" href="mailto:infos@eduhubsa.online">
+                Book a demo
+                <span className="btn-arrow"><ArrowIcon /></span>
+              </a>
+              <a className="btn btn-dark" href="mailto:infos@eduhubsa.online">
+                infos@eduhubsa.online
+              </a>
+            </div>
+          </div>
+        </div>
+        <style>{`@keyframes drawUnderline { to { transform: scaleX(1); } } [style*="drawUnderline"] { transform: scaleX(0); }`}</style>
+      </section>
+    );
+  }
+
+  /* ── Mission ── */
+  function ValueCard({bg, title, desc}) {
+    return (
+      <div style={{
+        background: bg,
+        border: '1.5px solid var(--ink)',
+        borderRadius: 18,
+        padding: '28px 26px',
+        boxShadow: '3px 3px 0 var(--ink)',
+        transition: 'transform .3s ease, box-shadow .3s ease',
+      }}
+      onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '6px 6px 0 var(--ink)'; }}
+      onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '3px 3px 0 var(--ink)'; }}>
+        <div style={{fontWeight: 800, fontSize: 18, letterSpacing:'-.01em', marginBottom: 10}}>{title}</div>
+        <div style={{fontSize: 15, lineHeight: 1.55, color: 'var(--ink-2)'}}>{desc}</div>
+      </div>
+    );
+  }
+
+  function Mission() {
+    return (
+      <section className="section" style={{paddingBottom: 80}}>
+        <div className="container">
+          <div className="mission-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:64, alignItems:'start'}}>
+            <div>
+              <span className="section-eyebrow"><span className="dot" /> Our mission</span>
+              <h2 className="section-title" style={{marginTop:18}}>
+                Make school admin invisible.
+              </h2>
+              <p style={{fontSize:18, lineHeight:1.65, color:'var(--ink-2)', maxWidth:480, marginBottom:24}}>
+                Every hour a principal spends chasing spreadsheets is an hour not spent in classrooms. Every message a teacher types manually is a moment pulled away from a learner who needs attention.
+              </p>
+              <p style={{fontSize:18, lineHeight:1.65, color:'var(--ink-2)', maxWidth:480, marginBottom:0}}>
+                We build EduHubSA so that the operational layer of running an institution becomes background noise — and educators can focus entirely on the people in front of them.
+              </p>
+            </div>
+            <div style={{display:'flex', flexDirection:'column', gap:16}}>
+              <ValueCard
+                bg="var(--lime)"
+                title="Affordable by design"
+                desc="We price on institution size, not feature gates. A 200-learner school in Limpopo deserves the same tools as a 10,000-learner university in Johannesburg."
+              />
+              <ValueCard
+                bg="var(--mint)"
+                title="Local-first"
+                desc="Built in SA, hosted in SA, designed around load-shedding, low-bandwidth realities, PayShap payments, and the languages our learners speak at home."
+              />
+              <ValueCard
+                bg="var(--cream)"
+                title="POPIA-compliant"
+                desc="Learner data never leaves South African servers. We were built POPIA-first, not POPIA-retrofitted. You own your data. Full export, any time."
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Team ── */
+  function Team() {
+    return (
+      <section style={{background:'var(--bg-2)', borderTop:'1px solid var(--hair)', borderBottom:'1px solid var(--hair)', padding:'100px 0'}}>
+        <div className="container">
+          <div style={{maxWidth:800, margin:'0 auto', textAlign:'center'}}>
+            <span className="section-eyebrow"><span className="dot" /> The team</span>
+            <h2 style={{
+              fontSize: 'clamp(36px, 4.6vw, 56px)',
+              lineHeight: 1.04,
+              letterSpacing: '-.03em',
+              fontWeight: 800,
+              margin: '18px 0 24px',
+            }}>
+              Small team. Focused output.
+            </h2>
+            <p style={{fontSize:19, lineHeight:1.65, color:'var(--ink-2)', maxWidth:560, margin:'0 auto 48px'}}>
+              We're a small, focused team of engineers and educators. We'd rather ship features than make org charts. You'll reach a human when you email us — not a ticketing system.
+            </p>
+            <div style={{
+              display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20,
+              textAlign:'left',
+            }}>
+              {[
+                {role:'Engineering', desc:'Backend systems, offline sync architecture, and API design. We write boring, reliable code on purpose.'},
+                {role:'Product & Design', desc:'Ex-educators who joined to fix the tools they wished they had. Every screen is reviewed by someone who has run a classroom.'},
+                {role:'Customer Success', desc:'Based in Johannesburg, answering emails the same day. We consider a 4-hour response time a failure.'},
+              ].map(({role, desc}) => (
+                <div key={role} style={{
+                  background:'#fff',
+                  border:'1.5px solid var(--ink)',
+                  borderRadius:18,
+                  padding:'28px 24px',
+                  boxShadow:'3px 3px 0 var(--ink)',
+                }}>
+                  <div style={{
+                    display:'inline-block',
+                    background:'var(--lime)',
+                    border:'1px solid var(--ink)',
+                    borderRadius:6,
+                    padding:'4px 10px',
+                    fontSize:11,
+                    fontWeight:800,
+                    letterSpacing:'.08em',
+                    textTransform:'uppercase',
+                    marginBottom:14,
+                  }}>{role}</div>
+                  <p style={{margin:0, fontSize:15, lineHeight:1.6, color:'var(--ink-2)'}}>{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Values Grid ── */
+  function ValuesGrid() {
+    const vals = [
+      {
+        title: 'Built for load-shedding',
+        bg: 'var(--lime)',
+        desc: 'Offline-first sync means teachers can take attendance, view marks, and record data during a 4-hour blackout. Everything reconciles when the power comes back. No data lost. No excuses.',
+        tag: 'Offline-first',
+      },
+      {
+        title: 'SA-first, always',
+        bg: 'var(--mint)',
+        desc: 'Local payment rails — EFT and PayShap. Interfaces in English, Zulu, Xhosa, and Afrikaans. Phone numbers that work on Telkom, MTN, Vodacom, and Cell C. We don\'t bolt SA on as an afterthought.',
+        tag: 'Local-first',
+      },
+      {
+        title: 'Transparent pricing',
+        bg: 'var(--peach)',
+        desc: 'No module fees. No per-feature add-ons. No surprise invoices. We quote you a number, you pay that number. Contact us for a personalised quote based on your learner count.',
+        tag: 'No hidden fees',
+      },
+      {
+        title: 'Your data is yours',
+        bg: 'var(--lilac)',
+        desc: 'Export your entire institution\'s data in standard CSV or JSON format at any time, with one click. We won\'t hold your data hostage if you leave. POPIA compliant by architecture, not by policy document.',
+        tag: 'POPIA compliant',
+      },
+    ];
+
+    return (
+      <section className="section" style={{paddingTop:100}}>
+        <div className="container">
+          <div className="section-head center">
+            <span className="section-eyebrow"><span className="dot" /> What we stand for</span>
+            <h2 className="section-title">Four things we will never compromise on.</h2>
+          </div>
+          <div className="values-grid" style={{display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:20}}>
+            {vals.map(({title, bg, desc, tag}) => (
+              <div key={title} style={{
+                background: bg,
+                border: '1.5px solid var(--ink)',
+                borderRadius: 22,
+                padding: '32px 26px',
+                boxShadow: '3px 3px 0 var(--ink)',
+                display:'flex',
+                flexDirection:'column',
+                gap:16,
+                transition:'transform .3s ease, box-shadow .3s ease',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '7px 7px 0 var(--ink)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '3px 3px 0 var(--ink)'; }}>
+                <div style={{
+                  display:'inline-block',
+                  background:'rgba(14,14,12,.08)',
+                  border:'1px solid rgba(14,14,12,.15)',
+                  borderRadius:6,
+                  padding:'4px 10px',
+                  fontSize:11,
+                  fontWeight:800,
+                  letterSpacing:'.08em',
+                  textTransform:'uppercase',
+                  width:'fit-content',
+                }}>{tag}</div>
+                <div style={{fontWeight:800, fontSize:20, lineHeight:1.15, letterSpacing:'-.02em'}}>{title}</div>
+                <p style={{margin:0, fontSize:15, lineHeight:1.6, color:'var(--ink-2)', flex:1}}>{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Stats Band ── */
+  function Stats() {
+    const stats = [
+      { num: '2026', lbl: 'Founded in Johannesburg' },
+      { num: 'JHB HQ', lbl: 'Sandton, South Africa' },
+      { num: '4', lbl: 'Languages supported' },
+      { num: '99.98%', lbl: 'Uptime SLA' },
+    ];
+    return (
+      <section className="stats-band">
+        <div className="container">
+          <div className="stats-grid">
+            {stats.map(({num, lbl}) => (
+              <div className="stat" key={lbl}>
+                <div className="num">{num}</div>
+                <div className="lbl">{lbl}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── CTA ── */
+  function CTA() {
+    return (
+      <section style={{padding:'0 28px'}}>
+        <div className="cta-band">
+          <span className="section-eyebrow" style={{background:'#fff'}}><span className="dot" /> No credit card required</span>
+          <h2 style={{marginTop:16}}>Ready to see it in action?</h2>
+          <p>Book a 20-minute demo and we'll show you exactly how EduHubSA would work for your institution — no slides, no fluff, just the actual product.</p>
+          <div style={{display:'flex', gap:14, flexWrap:'wrap'}}>
+            <a className="btn btn-dark" href="mailto:infos@eduhubsa.online?subject=Demo request">
+              Book a demo
+              <span className="btn-arrow"><ArrowIcon /></span>
+            </a>
+            <a className="btn" style={{background:'#fff'}} href="mailto:infos@eduhubsa.online">
+              infos@eduhubsa.online
+            </a>
+          </div>
+          <svg className="deco" viewBox="0 0 320 320" fill="none" stroke="var(--ink)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M 40 200 C 80 140, 160 130, 220 180" />
+            <path d="M 220 180 l -10 -4 m 10 4 l -4 -10" />
+            <circle cx="60" cy="100" r="30" />
+            <path d="M 240 70 L 260 90 L 240 110 L 220 90 Z" />
+            <path d="M 280 240 q 10 -14 20 0 t 20 0" />
+            <path d="M 100 280 l 8 -16 l 8 16 l 16 8 l -16 8 l -8 16 l -8 -16 l -16 -8 z" fill="var(--ink)" />
+          </svg>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Footer ── */
+  function Footer() {
+    const socials = [
+      { label: 'X', href: '#', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
+      { label: 'LinkedIn', href: '#', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg> },
+      { label: 'Instagram', href: '#', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> },
+      { label: 'YouTube', href: '#', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="var(--bg)"/></svg> },
+    ];
+
+    return (
+      <footer className="footer">
+        <div className="container">
+          <div className="foot-grid">
+            <div>
+              <a href="/" className="brand" style={{color:'var(--bg)'}}>
+                <span className="brand-mark" style={{background:'var(--lime)', color:'var(--ink)'}}>
+                  <GradCap />
+                </span>
+                eduhubsa
+              </a>
+              <p className="foot-blurb">
+                A calm, low-cost institution management system built in South Africa, for South African schools and universities. POPIA-compliant. Loadshedding-friendly.
+              </p>
+              <div style={{display:'flex', gap:10}}>
+                {socials.map(({label, href, icon}) => (
+                  <a key={label} href={href} aria-label={label} style={{
+                    width:38, height:38, borderRadius:'50%',
+                    border:'1px solid rgba(250,250,242,.2)',
+                    display:'grid', placeItems:'center',
+                    color:'var(--bg)',
+                    transition:'all .2s ease',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background='var(--lime)'; e.currentTarget.style.borderColor='var(--lime)'; e.currentTarget.style.color='var(--ink)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.borderColor='rgba(250,250,242,.2)'; e.currentTarget.style.color='var(--bg)'; }}>
+                    {icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h5>Product</h5>
+              <ul>
+                <li><a href="/features.html">Features</a></li>
+                <li><a href="/pricing.html">Pricing</a></li>
+                <li><a href="/integrations.html">Integrations</a></li>
+                <li><a href="/changelog.html">Changelog</a></li>
+                <li><a href="/roadmap.html">Roadmap</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5>Resources</h5>
+              <ul>
+                <li><a href="/case-studies.html">Case studies</a></li>
+                <li><a href="/help.html">Help centre</a></li>
+                <li><a href="/migration.html">Migration guide</a></li>
+                <li><a href="/blog.html">Blog</a></li>
+                <li><a href="mailto:infos@eduhubsa.online">infos@eduhubsa.online</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5>Company</h5>
+              <ul>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/careers.html">Careers</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/privacy.html">POPIA &amp; Privacy</a></li>
+                <li><a href="/terms.html">Terms</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="foot-bottom">
+            <div>© 2026 EduHubSA (Pty) Ltd. Made in Johannesburg.</div>
+            <div className="links">
+              <a href="/privacy.html">Privacy</a>
+              <a href="/terms.html">Terms</a>
+              <a href="#">Security</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    );
+  }
+
+  /* ── App ── */
+  function App() {
+    React.useEffect(() => {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+
+      const selectors = [
+        '.section-eyebrow', '.section-title', '.section-lede',
+        '.stat', '.cta-band', '.foot-grid',
+      ];
+      document.querySelectorAll(selectors.join(',')).forEach((el, i) => {
+        if (!el.classList.contains('fade-up')) el.classList.add('fade-up');
+        const idx = [...(el.parentElement?.children || [])].indexOf(el);
+        if (idx >= 0 && idx <= 4) el.classList.add(`d${idx}`);
+        io.observe(el);
+      });
+
+      return () => io.disconnect();
+    }, []);
+
+    return (
+      <>
+        <Nav />
+        <main>
+          <Hero />
+          <Mission />
+          <Team />
+          <ValuesGrid />
+          <Stats />
+          <CTA />
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

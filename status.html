@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>System Status — EduHubSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const NAV_LINKS=[['index.html#features','Features'],['case-studies.html','Case Studies'],['blog.html','Blog'],['pricing.html','Pricing'],['contact.html','Need help?']];
+const FOOT_COLS=[{h:'Product',links:[['index.html#features','Features'],['pricing.html','Pricing'],['integrations.html','Integrations'],['changelog.html','Changelog'],['roadmap.html','Roadmap']]},{h:'Resources',links:[['case-studies.html','Case studies'],['help.html','Help centre'],['migration.html','Migration guide'],['blog.html','Blog'],['mailto:infos@eduhubsa.online','infos@eduhubsa.online']]},{h:'Company',links:[['about.html','About'],['careers.html','Careers'],['contact.html','Contact'],['privacy.html','POPIA & Privacy'],['terms.html','Terms']]}];
+function Nav(){const[s,setS]=React.useState(false);React.useEffect(()=>{const f=()=>setS(window.scrollY>12);f();window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);return(<header className={`nav-wrap ${s?'scrolled':''}`}><div className="container nav"><a href="index.html" className="brand"><span className="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhub<span style={{color:'var(--lime-deep)'}}>sa</span></a><nav className="nav-links">{NAV_LINKS.map(([h,l])=><a key={l} className="nav-link" href={h}>{l}</a>)}</nav><a className="btn" href="contact.html">Start free trial</a></div></header>);}
+function Footer(){return(<footer className="footer"><div className="container"><div className="foot-grid"><div><a href="index.html" className="brand" style={{color:'var(--bg)'}}><span className="brand-mark" style={{background:'var(--lime)',color:'var(--ink)'}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhubsa</a><p className="foot-blurb">South African institution management. POPIA-compliant.</p></div>{FOOT_COLS.map(({h,links})=><div key={h}><h5>{h}</h5><ul>{links.map(([href,label])=><li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}</div><div className="foot-bottom"><div>© 2026 EduHubSA (Pty) Ltd.</div><div className="links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div></div></div></footer>);}
+
+const services=[
+  {name:'Dashboard & Web App',status:'operational',uptime:'99.98%'},
+  {name:'Student Records API',status:'operational',uptime:'99.97%'},
+  {name:'Attendance Engine',status:'operational',uptime:'100%'},
+  {name:'Fee Management',status:'operational',uptime:'99.99%'},
+  {name:'Parent Portal',status:'operational',uptime:'99.96%'},
+  {name:'WhatsApp Gateway',status:'operational',uptime:'99.91%'},
+  {name:'SMS Notifications',status:'operational',uptime:'99.95%'},
+  {name:'Timetable Generator',status:'operational',uptime:'99.98%'},
+  {name:'Offline Sync Service',status:'operational',uptime:'100%'},
+  {name:'JHB Data Centre',status:'operational',uptime:'99.99%'},
+  {name:'CPT Data Centre',status:'operational',uptime:'100%'},
+];
+const history=[
+  {date:'20 May 2026',title:'Scheduled maintenance — JHB data centre',detail:'02:00–03:30 SAST. Brief downtime for database upgrades. All services restored ahead of schedule.',type:'maintenance'},
+  {date:'8 Apr 2026',title:'WhatsApp gateway degraded performance',detail:'Elevated latency on WhatsApp message delivery for 42 minutes due to upstream provider issue. Resolved.',type:'incident'},
+  {date:'1 Mar 2026',title:'Scheduled maintenance — SSL certificate renewal',detail:'Zero downtime certificate rotation completed successfully.',type:'maintenance'},
+];
+
+function Page(){
+  const now = new Date().toLocaleString('en-ZA',{timeZone:'Africa/Johannesburg',dateStyle:'long',timeStyle:'short'});
+  return(
+    <>
+      <section className="page-hero" style={{background:'var(--mint)',borderBottom:'1.5px solid var(--ink)'}}>
+        <div className="container">
+          <div style={{display:'flex',alignItems:'center',gap:14,marginBottom:16}}>
+            <span className="status-dot green" style={{width:14,height:14}}/>
+            <span style={{fontWeight:700,fontSize:18,color:'var(--pine)'}}>All systems operational</span>
+          </div>
+          <h1>System Status</h1>
+          <p style={{marginTop:12}}>Last checked: {now} (SAST)</p>
+        </div>
+      </section>
+
+      <section className="inner-section">
+        <div className="container">
+          <div style={{border:'1.5px solid var(--ink)',borderRadius:18,overflow:'hidden',marginBottom:48}}>
+            <div style={{background:'var(--bg-2)',padding:'16px 24px',borderBottom:'1.5px solid var(--ink)',fontWeight:700,fontSize:14,display:'flex',justifyContent:'space-between'}}>
+              <span>Service</span>
+              <div style={{display:'flex',gap:48}}><span>30-day uptime</span><span>Status</span></div>
+            </div>
+            {services.map(({name,status,uptime},i)=>(
+              <div key={i} style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'14px 24px',borderBottom:i<services.length-1?'1px solid var(--hair)':'none',background:'#fff'}}>
+                <span style={{fontWeight:600,fontSize:15}}>{name}</span>
+                <div style={{display:'flex',alignItems:'center',gap:48}}>
+                  <span style={{fontFamily:'var(--font-mono)',fontSize:13,color:'var(--muted)'}}>{uptime}</span>
+                  <span style={{display:'flex',alignItems:'center',gap:6,fontSize:13,fontWeight:700,color:'var(--pine)'}}>
+                    <span className="status-dot green"/>{status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <h2 style={{fontSize:28,fontWeight:800,letterSpacing:'-.02em',margin:'0 0 24px'}}>Incident history</h2>
+          {history.map(({date,title,detail,type},i)=>(
+            <div key={i} style={{border:'1.5px solid var(--ink)',borderRadius:14,padding:'20px 24px',marginBottom:14,background:'#fff',display:'flex',gap:16,alignItems:'flex-start'}}>
+              <span style={{marginTop:2,fontSize:18}}>{type==='maintenance'?'🔧':'⚠️'}</span>
+              <div>
+                <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'.1em',color:'var(--muted)',marginBottom:4}}>{date} · {type}</div>
+                <div style={{fontWeight:800,fontSize:16,marginBottom:4}}>{title}</div>
+                <div style={{fontSize:14,color:'var(--ink-2)'}}>{detail}</div>
+              </div>
+            </div>
+          ))}
+
+          <div style={{marginTop:48,background:'var(--bg-2)',border:'1px solid var(--hair)',borderRadius:14,padding:'24px',textAlign:'center'}}>
+            <div style={{fontWeight:700,marginBottom:6}}>Subscribe to status updates</div>
+            <p style={{fontSize:14,color:'var(--ink-2)',margin:'0 0 14px'}}>Get notified by email when we have an incident or scheduled maintenance.</p>
+            <a className="btn btn-dark" href="mailto:infos@eduhubsa.online?subject=Subscribe to status updates">Subscribe via email</a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+function App(){return(<><Nav/><main><Page/></main><Footer/></>);}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

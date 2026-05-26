@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — EduHubSA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Caveat:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAFAF2;
+      --bg-2: #F2F1E6;
+      --ink: #0E0E0C;
+      --lime: #C8F23A;
+      --lime-2: #B0E51A;
+      --lime-deep: #82B007;
+      --mint: #BFE9C5;
+      --lilac: #C8B8F0;
+      --peach: #F8C9A1;
+      --cream: #F5E7C8;
+      --muted: #6B6B62;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    #root { display: flex; flex-direction: column; min-height: 100vh; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const GradCap = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="14,4 26,10 14,16 2,10" fill="var(--lime)" stroke="var(--ink)" strokeWidth="1.5" strokeLinejoin="round"/>
+    <path d="M6 12.5V19.5C6 19.5 9.5 22.5 14 22.5C18.5 22.5 22 19.5 22 19.5V12.5" stroke="var(--ink)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    <line x1="26" y1="10" x2="26" y2="17" stroke="var(--ink)" strokeWidth="1.5" strokeLinecap="round"/>
+    <circle cx="26" cy="17.5" r="1.5" fill="var(--ink)"/>
+  </svg>
+);
+
+const XIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
+const LinkedInIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </svg>
+);
+const InstagramIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+  </svg>
+);
+const YouTubeIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+  </svg>
+);
+
+function useIntersection(options = {}) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setVisible(true); obs.disconnect(); }
+    }, { threshold: 0.1, ...options });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, visible];
+}
+
+function FadeUp({ children, delay = 0, style = {} }) {
+  const [ref, visible] = useIntersection();
+  return (
+    <div ref={ref} style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'translateY(0)' : 'translateY(32px)',
+      transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
+      ...style
+    }}>
+      {children}
+    </div>
+  );
+}
+
+const navStyles = {
+  nav: {
+    position: 'sticky', top: 0, zIndex: 100,
+    background: 'var(--bg)',
+    borderBottom: '1.5px solid var(--ink)',
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '0 40px', height: '64px',
+    boxShadow: '0 2px 0 var(--ink)',
+  },
+  brand: { display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: 'var(--ink)' },
+  brandText: { fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: '20px', letterSpacing: '-0.5px' },
+  brandSa: { color: 'var(--lime-deep)' },
+  links: { display: 'flex', alignItems: 'center', gap: '32px', listStyle: 'none' },
+  link: { textDecoration: 'none', color: 'var(--ink)', fontWeight: 500, fontSize: '15px' },
+  btn: {
+    background: 'var(--lime)', color: 'var(--ink)',
+    border: '1.5px solid var(--ink)', borderRadius: '100px',
+    padding: '10px 22px', fontWeight: 700, fontSize: '14px',
+    boxShadow: '3px 3px 0 var(--ink)', cursor: 'pointer',
+    textDecoration: 'none', display: 'inline-block',
+    fontFamily: 'Plus Jakarta Sans',
+    transition: 'transform 0.1s, box-shadow 0.1s',
+  },
+};
+
+function Nav() {
+  return (
+    <nav style={navStyles.nav}>
+      <a href="/index.html" style={navStyles.brand}>
+        <GradCap />
+        <span style={navStyles.brandText}>eduhub<span style={navStyles.brandSa}>sa</span></span>
+      </a>
+      <ul style={navStyles.links}>
+        <li><a href="/features.html" style={navStyles.link}>Features</a></li>
+        <li><a href="/case-studies.html" style={navStyles.link}>Case Studies</a></li>
+        <li><a href="/blog.html" style={{...navStyles.link, color: 'var(--lime-deep)', fontWeight: 700}}>Blog</a></li>
+        <li><a href="/pricing.html" style={navStyles.link}>Pricing</a></li>
+        <li><a href="/contact.html" style={navStyles.link}>Need help?</a></li>
+      </ul>
+      <a href="mailto:infos@eduhubsa.online" style={navStyles.btn}>Start free trial</a>
+    </nav>
+  );
+}
+
+function Footer() {
+  const colHead = { fontWeight: 700, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(250,250,242,0.5)', marginBottom: '16px' };
+  const flink = { color: 'rgba(250,250,242,0.8)', textDecoration: 'none', fontSize: '14px', display: 'block', marginBottom: '10px', fontWeight: 500 };
+  return (
+    <footer style={{ background: 'var(--ink)', color: 'var(--bg)', padding: '64px 40px 32px', borderTop: '1.5px solid var(--ink)' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '48px', marginBottom: '48px' }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <GradCap />
+              <span style={{ fontWeight: 800, fontSize: '20px', color: 'var(--bg)' }}>eduhub<span style={{ color: 'var(--lime)' }}>sa</span></span>
+            </div>
+            <p style={{ color: 'rgba(250,250,242,0.6)', fontSize: '14px', lineHeight: 1.7, maxWidth: '280px', marginBottom: '24px' }}>
+              School management software built for South African institutions. Offline-first, POPIA-compliant, and genuinely easy to use.
+            </p>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              {[
+                { icon: <XIcon />, href: '#' },
+                { icon: <LinkedInIcon />, href: '#' },
+                { icon: <InstagramIcon />, href: '#' },
+                { icon: <YouTubeIcon />, href: '#' },
+              ].map(({ icon, href }, i) => (
+                <a key={i} href={href} style={{
+                  width: '36px', height: '36px', border: '1.5px solid rgba(250,250,242,0.3)',
+                  borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'rgba(250,250,242,0.7)', textDecoration: 'none',
+                }}>{icon}</a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div style={colHead}>Product</div>
+            <a href="/features.html" style={flink}>Features</a>
+            <a href="/pricing.html" style={flink}>Pricing</a>
+            <a href="/integrations.html" style={flink}>Integrations</a>
+            <a href="/changelog.html" style={flink}>Changelog</a>
+            <a href="/roadmap.html" style={flink}>Roadmap</a>
+          </div>
+          <div>
+            <div style={colHead}>Resources</div>
+            <a href="/case-studies.html" style={flink}>Case Studies</a>
+            <a href="/help.html" style={flink}>Help Centre</a>
+            <a href="/migration.html" style={flink}>Migration</a>
+            <a href="/blog.html" style={flink}>Blog</a>
+          </div>
+          <div>
+            <div style={colHead}>Company</div>
+            <a href="/about.html" style={flink}>About</a>
+            <a href="/careers.html" style={flink}>Careers</a>
+            <a href="/contact.html" style={flink}>Contact</a>
+            <a href="/privacy.html" style={flink}>Privacy</a>
+            <a href="/terms.html" style={flink}>Terms</a>
+            <a href="mailto:infos@eduhubsa.online" style={flink}>infos@eduhubsa.online</a>
+          </div>
+        </div>
+        <div style={{ borderTop: '1px solid rgba(250,250,242,0.15)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ color: 'rgba(250,250,242,0.4)', fontSize: '13px' }}>2026 EduHubSA (Pty) Ltd. All rights reserved.</span>
+          <span style={{ color: 'rgba(250,250,242,0.4)', fontSize: '13px' }}>Built for South Africa.</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+const posts = [
+  {
+    title: "Offline-first: Why Your School Software Must Survive Load-shedding",
+    tag: "Technology", date: "Apr 2026",
+    excerpt: "When the power goes out, school administration should not. We break down how offline-first architecture keeps your data intact and your staff productive through every stage of load-shedding."
+  },
+  {
+    title: "From Paper Rosters to Digital Attendance in One Day",
+    tag: "Operations", date: "Apr 2026",
+    excerpt: "Schools that have switched describe the transition as faster than expected. Here is the step-by-step approach that makes same-day rollout possible without disrupting a single lesson."
+  },
+  {
+    title: "POPIA Compliance for Schools: A Plain-English Guide",
+    tag: "Compliance", date: "Mar 2026",
+    excerpt: "POPIA places clear responsibilities on schools as responsible parties. This guide cuts through the legal language and shows exactly what your institution needs to document and enforce."
+  },
+  {
+    title: "Auto-timetabling: How We Save Admin Teams a Week Every Term",
+    tag: "Features", date: "Mar 2026",
+    excerpt: "Manual timetabling is one of the most time-consuming tasks in school administration. Our constraint-solver approach generates clash-free timetables in minutes, not days."
+  },
+  {
+    title: "Parent Communication That Actually Works: WhatsApp vs Email vs SMS",
+    tag: "Comms", date: "Feb 2026",
+    excerpt: "Different channels reach different parents. We analysed engagement data across South African schools to identify which mix of communication methods drives the highest read rates and fee payment responses."
+  },
+];
+
+const tagColors = {
+  Technology: { bg: 'var(--lilac)', text: 'var(--ink)' },
+  Operations: { bg: 'var(--mint)', text: 'var(--ink)' },
+  Compliance: { bg: 'var(--peach)', text: 'var(--ink)' },
+  Features: { bg: 'var(--lime)', text: 'var(--ink)' },
+  Comms: { bg: 'var(--cream)', text: 'var(--ink)' },
+  Finance: { bg: 'var(--lime)', text: 'var(--ink)' },
+};
+
+function TagPill({ tag }) {
+  const colors = tagColors[tag] || { bg: 'var(--bg-2)', text: 'var(--ink)' };
+  return (
+    <span style={{
+      display: 'inline-block',
+      background: colors.bg, color: colors.text,
+      border: '1.5px solid var(--ink)', borderRadius: '100px',
+      padding: '3px 12px', fontSize: '12px', fontWeight: 700,
+      fontFamily: 'JetBrains Mono', letterSpacing: '0.03em',
+    }}>{tag}</span>
+  );
+}
+
+function PostCard({ post, delay = 0 }) {
+  return (
+    <FadeUp delay={delay}>
+      <div style={{
+        background: '#fff', border: '1.5px solid var(--ink)', borderRadius: '12px',
+        boxShadow: '3px 3px 0 var(--ink)', padding: '28px',
+        display: 'flex', flexDirection: 'column', gap: '14px', height: '100%',
+        transition: 'transform 0.15s, box-shadow 0.15s',
+      }}
+        onMouseEnter={e => { e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '5px 5px 0 var(--ink)'; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = 'translate(0,0)'; e.currentTarget.style.boxShadow = '3px 3px 0 var(--ink)'; }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <TagPill tag={post.tag} />
+          <span style={{ color: 'var(--muted)', fontSize: '13px', fontFamily: 'JetBrains Mono' }}>{post.date}</span>
+        </div>
+        <h3 style={{ fontSize: '18px', fontWeight: 700, lineHeight: 1.3, letterSpacing: '-0.3px' }}>{post.title}</h3>
+        <p style={{ color: 'var(--muted)', fontSize: '14px', lineHeight: 1.65, flex: 1 }}>{post.excerpt}</p>
+        <a href="#" style={{ color: 'var(--lime-deep)', fontWeight: 700, textDecoration: 'none', fontSize: '14px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+          Read more →
+        </a>
+      </div>
+    </FadeUp>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Nav />
+      <main style={{ flex: 1 }}>
+
+        {/* Hero */}
+        <section style={{ background: 'var(--bg-2)', borderBottom: '1.5px solid var(--ink)', padding: '80px 40px 64px' }}>
+          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
+            <FadeUp>
+              <div style={{ fontFamily: 'JetBrains Mono', fontSize: '13px', fontWeight: 500, color: 'var(--lime-deep)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px', border: '1.5px solid var(--lime-deep)', display: 'inline-block', padding: '4px 14px', borderRadius: '100px', background: 'transparent' }}>
+                The EduHubSA Blog
+              </div>
+            </FadeUp>
+            <FadeUp delay={100}>
+              <h1 style={{ fontSize: 'clamp(40px, 5vw, 60px)', fontWeight: 800, letterSpacing: '-2px', lineHeight: 1.1, marginBottom: '20px' }}>
+                Insights for school leaders.
+              </h1>
+            </FadeUp>
+            <FadeUp delay={200}>
+              <p style={{ fontSize: '18px', color: 'var(--muted)', maxWidth: '560px', lineHeight: 1.65 }}>
+                Practical advice on running South African institutions — from fee collection to timetabling.
+              </p>
+            </FadeUp>
+          </div>
+        </section>
+
+        {/* Featured Post */}
+        <section style={{ padding: '64px 40px', borderBottom: '1.5px solid var(--ink)' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <FadeUp>
+              <div style={{
+                background: 'var(--lime)', border: '1.5px solid var(--ink)', borderRadius: '16px',
+                boxShadow: '4px 4px 0 var(--ink)', padding: '48px',
+                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center',
+              }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                    <TagPill tag="Finance" />
+                    <span style={{ fontFamily: 'JetBrains Mono', fontSize: '13px', color: 'var(--muted)' }}>May 2026</span>
+                    <span style={{ fontFamily: 'JetBrains Mono', fontSize: '12px', background: 'var(--ink)', color: 'var(--lime)', padding: '3px 10px', borderRadius: '100px', fontWeight: 700 }}>Featured</span>
+                  </div>
+                  <h2 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 800, letterSpacing: '-1px', lineHeight: 1.2, marginBottom: '20px' }}>
+                    Why 94% Fee Collection Is Achievable — and What's Stopping Most Schools
+                  </h2>
+                  <a href="#" style={{ ...navStyles.btn, fontSize: '14px' }}>Read article →</a>
+                </div>
+                <div>
+                  <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'var(--ink)' }}>
+                    Most schools accept low fee collection rates as an unavoidable reality of their context — but the data tells a different story. Institutions that implement structured fee follow-up systems, with timely reminders and accessible payment options, consistently see collection rates climb well above the national average.
+                  </p>
+                  <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'var(--ink)', marginTop: '14px' }}>
+                    The barrier is almost never parent willingness; it is friction. Parents who receive clear, timely statements and can pay via multiple channels pay more reliably than those navigating paper invoices and single-channel processes.
+                  </p>
+                  <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'var(--ink)', marginTop: '14px' }}>
+                    This article walks through the specific system changes — automated reminders, partial payment plans, and SMS nudges — that move the dial from 60% to 94%, and why most schools have not made these changes yet.
+                  </p>
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+        </section>
+
+        {/* Post Grid */}
+        <section style={{ padding: '64px 40px', borderBottom: '1.5px solid var(--ink)' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <FadeUp>
+              <h2 style={{ fontSize: '28px', fontWeight: 800, letterSpacing: '-0.5px', marginBottom: '36px' }}>Latest articles</h2>
+            </FadeUp>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+              {posts.map((post, i) => (
+                <PostCard key={i} post={post} delay={i * 80} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Newsletter CTA */}
+        <section style={{ background: 'var(--ink)', borderTop: '1.5px solid var(--ink)', padding: '80px 40px' }}>
+          <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
+            <FadeUp>
+              <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 800, letterSpacing: '-1px', color: 'var(--bg)', marginBottom: '12px' }}>
+                Get school leadership insights in your inbox.
+              </h2>
+              <p style={{ color: 'rgba(250,250,242,0.6)', fontSize: '16px', marginBottom: '32px' }}>
+                New articles on school management, POPIA compliance, and product updates — delivered monthly.
+              </p>
+              <div style={{ display: 'flex', gap: '0', maxWidth: '480px', margin: '0 auto' }}>
+                <input
+                  type="email"
+                  placeholder="your@school.ac.za"
+                  style={{
+                    flex: 1, padding: '14px 18px', border: '1.5px solid var(--bg)',
+                    borderRight: 'none', borderRadius: '100px 0 0 100px',
+                    background: 'rgba(255,255,255,0.08)', color: 'var(--bg)',
+                    fontSize: '15px', fontFamily: 'Plus Jakarta Sans', outline: 'none',
+                  }}
+                />
+                <a
+                  href="mailto:infos@eduhubsa.online"
+                  style={{
+                    background: 'var(--lime)', color: 'var(--ink)',
+                    border: '1.5px solid var(--bg)', borderRadius: '0 100px 100px 0',
+                    padding: '14px 24px', fontWeight: 700, fontSize: '14px',
+                    textDecoration: 'none', display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap',
+                    boxShadow: 'none', fontFamily: 'Plus Jakarta Sans',
+                  }}
+                >
+                  Subscribe
+                </a>
+              </div>
+            </FadeUp>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

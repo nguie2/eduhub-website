@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Help Centre — EduHubSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+.faq-item { border: 1.5px solid var(--ink); border-radius: 12px; margin-bottom: 10px; background: #fff; overflow: hidden; }
+.faq-q { padding: 16px 20px; font-weight: 700; font-size: 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.faq-q:hover { background: var(--bg-2); }
+.faq-a { padding: 0 20px 16px; font-size: 15px; color: var(--ink-2); line-height: 1.65; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const NAV_LINKS=[['index.html#features','Features'],['case-studies.html','Case Studies'],['blog.html','Blog'],['pricing.html','Pricing'],['contact.html','Need help?']];
+const FOOT_COLS=[{h:'Product',links:[['index.html#features','Features'],['pricing.html','Pricing'],['integrations.html','Integrations'],['changelog.html','Changelog'],['roadmap.html','Roadmap']]},{h:'Resources',links:[['case-studies.html','Case studies'],['help.html','Help centre'],['migration.html','Migration guide'],['blog.html','Blog'],['mailto:infos@eduhubsa.online','infos@eduhubsa.online']]},{h:'Company',links:[['about.html','About'],['careers.html','Careers'],['contact.html','Contact'],['privacy.html','POPIA & Privacy'],['terms.html','Terms']]}];
+function Nav(){const[s,setS]=React.useState(false);React.useEffect(()=>{const f=()=>setS(window.scrollY>12);f();window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);return(<header className={`nav-wrap ${s?'scrolled':''}`}><div className="container nav"><a href="index.html" className="brand"><span className="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhub<span style={{color:'var(--lime-deep)'}}>sa</span></a><nav className="nav-links">{NAV_LINKS.map(([h,l])=><a key={l} className="nav-link" href={h}>{l}</a>)}</nav><a className="btn" href="contact.html">Start free trial</a></div></header>);}
+function Footer(){return(<footer className="footer"><div className="container"><div className="foot-grid"><div><a href="index.html" className="brand" style={{color:'var(--bg)'}}><span className="brand-mark" style={{background:'var(--lime)',color:'var(--ink)'}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhubsa</a><p className="foot-blurb">South African institution management. POPIA-compliant.</p></div>{FOOT_COLS.map(({h,links})=><div key={h}><h5>{h}</h5><ul>{links.map(([href,label])=><li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}</div><div className="foot-bottom"><div>© 2026 EduHubSA (Pty) Ltd.</div><div className="links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div></div></div></footer>);}
+
+const faqs={
+  'Getting started':[
+    {q:'How do I set up my institution?',a:'After signing up, you\'ll be guided through a setup wizard: enter your institution details, import your learner roster (CSV, Excel, or CEMIS format), invite your admin staff, and configure your first timetable. Most institutions are fully live within 48 hours.'},
+    {q:'Can I import data from my existing system?',a:'Yes. We support imports from Excel, CSV, CEMIS, and several common SIS formats. Our onboarding team will handle the migration for you at no extra cost. See the migration guide for details.'},
+    {q:'How do I invite teachers and admin staff?',a:'Go to Settings → Users → Invite. Enter their email addresses and assign roles (Teacher, Admin, Bursar, etc.). They\'ll receive an email with a login link.'},
+    {q:'Is there a mobile app?',a:'Yes — iOS and Android. Teachers use it for attendance (including offline). Parents use the parent-facing app to view marks, fees, and announcements.'},
+  ],
+  'Attendance':[
+    {q:'How does offline attendance work?',a:'Teachers mark attendance on the mobile app. If there\'s no internet (loadshedding or rural connectivity), data is stored locally and syncs automatically when connectivity returns. Up to 72 hours of data can be stored offline.'},
+    {q:'Do parents get notified when a learner is absent?',a:'Yes — automatically. When a teacher marks a learner absent, the parent/guardian receives an SMS (and WhatsApp if configured) within 5 minutes.'},
+    {q:'Can I mark an entire class as present at once?',a:'Yes. Open the class, tap "Mark all present", then individually mark any absences. This is the fastest workflow for most teachers.'},
+  ],
+  'Fees & Finance':[
+    {q:'Which payment methods are supported?',a:'PayShap, EFT/bank transfer, and debit order. We\'re integrated with South African banks and payment rails directly — no third-party payment gateway required for PayShap.'},
+    {q:'How do automated fee reminders work?',a:'You set a reminder schedule (e.g., 7 days before due, on due date, 3 days after). The system sends personalised messages via SMS and/or WhatsApp in the parent\'s preferred language. You can customise the message templates.'},
+    {q:'Can parents see their fee statement in the parent app?',a:'Yes. They see a full, itemised statement including all charges, payments, and the outstanding balance — updated in real time.'},
+  ],
+  'Technical':[
+    {q:'What browsers are supported?',a:'Chrome, Firefox, Safari, and Edge — any modern browser. The web app works on Windows, Mac, and Linux. The mobile app requires iOS 14+ or Android 8+.'},
+    {q:'How secure is my data?',a:'All data is encrypted at rest (AES-256) and in transit (TLS 1.3). Data is stored in South African data centres in Johannesburg and Cape Town. We are fully POPIA-compliant. See our security page for full details.'},
+    {q:'What is the SLA for uptime?',a:'We target 99.9% uptime, and have achieved 99.98% over the past 12 months. See our status page for live and historical uptime.'},
+  ],
+};
+
+function FaqItem({q,a}){
+  const[open,setOpen]=React.useState(false);
+  return(
+    <div className="faq-item">
+      <div className="faq-q" onClick={()=>setOpen(o=>!o)}>
+        {q}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{transform:open?'rotate(180deg)':'rotate(0)',transition:'transform .2s ease',flexShrink:0}}><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      {open&&<div className="faq-a">{a}</div>}
+    </div>
+  );
+}
+
+function Page(){
+  return(
+    <>
+      <section className="page-hero"><div className="container"><span className="section-eyebrow"><span className="dot"/>Support</span><h1 style={{marginTop:14}}>Help Centre</h1><p>Answers to the most common questions. Can't find what you need? Email us at infos@eduhubsa.online — we respond within 24 hours.</p></div></section>
+      <section className="inner-section"><div className="container">
+        <div style={{display:'grid',gridTemplateColumns:'240px 1fr',gap:48,alignItems:'start'}}>
+          <div style={{position:'sticky',top:100}}>
+            <div style={{border:'1.5px solid var(--ink)',borderRadius:14,padding:'20px 18px',background:'#fff'}}>
+              <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'.1em',color:'var(--muted)',marginBottom:12}}>Topics</div>
+              {Object.keys(faqs).map(k=>(
+                <a key={k} href={`#${k.replace(/\s+/g,'-').toLowerCase()}`} style={{display:'block',fontSize:14,padding:'7px 0',borderBottom:'1px solid var(--hair)',color:'var(--ink-2)',fontWeight:500}}>{k}</a>
+              ))}
+            </div>
+            <div style={{marginTop:16,border:'1.5px solid var(--ink)',borderRadius:14,padding:'20px 18px',background:'var(--lime)'}}>
+              <div style={{fontWeight:800,fontSize:15,marginBottom:6}}>Still stuck?</div>
+              <p style={{fontSize:13,color:'var(--ink-2)',margin:'0 0 12px'}}>Our team responds within 24 hours.</p>
+              <a className="btn btn-dark" href="mailto:infos@eduhubsa.online" style={{width:'100%',justifyContent:'center',fontSize:13,padding:'10px 14px'}}>Email support</a>
+            </div>
+          </div>
+          <div>
+            {Object.entries(faqs).map(([section,items])=>(
+              <div key={section} style={{marginBottom:40}} id={section.replace(/\s+/g,'-').toLowerCase()}>
+                <h2 style={{fontSize:22,fontWeight:800,letterSpacing:'-.02em',margin:'0 0 16px',paddingBottom:12,borderBottom:'1.5px solid var(--ink)'}}>{section}</h2>
+                {items.map((f,i)=><FaqItem key={i} {...f}/>)}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div></section>
+    </>
+  );
+}
+function App(){return(<><Nav/><main><Page/></main><Footer/></>);}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

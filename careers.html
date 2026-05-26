@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Careers — EduHubSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const NAV_LINKS=[['index.html#features','Features'],['case-studies.html','Case Studies'],['blog.html','Blog'],['pricing.html','Pricing'],['contact.html','Need help?']];
+const FOOT_COLS=[{h:'Product',links:[['index.html#features','Features'],['pricing.html','Pricing'],['integrations.html','Integrations'],['changelog.html','Changelog'],['roadmap.html','Roadmap']]},{h:'Resources',links:[['case-studies.html','Case studies'],['help.html','Help centre'],['migration.html','Migration guide'],['blog.html','Blog'],['mailto:infos@eduhubsa.online','infos@eduhubsa.online']]},{h:'Company',links:[['about.html','About'],['careers.html','Careers'],['contact.html','Contact'],['privacy.html','POPIA & Privacy'],['terms.html','Terms']]}];
+function Nav(){const[s,setS]=React.useState(false);React.useEffect(()=>{const f=()=>setS(window.scrollY>12);f();window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);return(<header className={`nav-wrap ${s?'scrolled':''}`}><div className="container nav"><a href="index.html" className="brand"><span className="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhub<span style={{color:'var(--lime-deep)'}}>sa</span></a><nav className="nav-links">{NAV_LINKS.map(([h,l])=><a key={l} className="nav-link" href={h}>{l}</a>)}</nav><a className="btn" href="contact.html">Start free trial</a></div></header>);}
+function Footer(){return(<footer className="footer"><div className="container"><div className="foot-grid"><div><a href="index.html" className="brand" style={{color:'var(--bg)'}}><span className="brand-mark" style={{background:'var(--lime)',color:'var(--ink)'}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhubsa</a><p className="foot-blurb">South African institution management. POPIA-compliant. Loadshedding-friendly.</p></div>{FOOT_COLS.map(({h,links})=><div key={h}><h5>{h}</h5><ul>{links.map(([href,label])=><li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}</div><div className="foot-bottom"><div>© 2026 EduHubSA (Pty) Ltd. Made in Johannesburg.</div><div className="links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div></div></div></footer>);}
+
+const perks=[
+  {t:'Remote-first',d:'Work from anywhere in South Africa. We meet in person quarterly in Johannesburg.',c:'bg-lime'},
+  {t:'Mission-driven',d:'Every line of code helps teachers teach and principals lead. The impact is real.',c:'bg-mint'},
+  {t:'Ownership',d:'Meaningful equity for all team members from day one. We build this together.',c:'bg-cream'},
+  {t:'Learning budget',d:'R12,000 per year for courses, conferences, and books — no approval required.',c:'bg-lilac'},
+];
+const jobs=[
+  {title:'Senior Full-Stack Engineer',dept:'Engineering',type:'Full-time · Remote',desc:'Own features end-to-end in our React + Node.js stack. We move fast and ship often.',tags:['React','Node.js','PostgreSQL']},
+  {title:'Product Designer',dept:'Product',type:'Full-time · Remote',desc:'Shape the experience for 280K+ learners. You\'ll own design from research to pixel-perfect delivery.',tags:['Figma','User research','Design systems']},
+  {title:'Customer Success Manager',dept:'Customer Success',type:'Full-time · Gauteng / Remote',desc:'Be the reason our institutions succeed. You\'ll onboard new schools, train staff, and ensure every customer gets full value.',tags:['Education sector','SaaS','Training']},
+  {title:'Sales Development Representative',dept:'Sales',type:'Full-time · Johannesburg',desc:'Open doors with schools and universities across South Africa. You know the education sector and can translate technical benefits into simple value.',tags:['B2B Sales','Education','SA market']},
+  {title:'DevOps Engineer',dept:'Engineering',type:'Full-time · Remote',desc:'Keep EduHubSA running at 99.98% uptime across two SA data centres. Own our CI/CD, monitoring, and infrastructure-as-code.',tags:['AWS','Terraform','Kubernetes']},
+];
+
+function Page(){
+  return(
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <span className="section-eyebrow"><span className="dot"/>We're hiring</span>
+          <h1 style={{marginTop:14}}>Help us fix<br/>institution admin in SA.</h1>
+          <p>We're a small, ambitious team building the management layer for South African education. Remote-first, mission-driven, and growing fast.</p>
+        </div>
+      </section>
+
+      <section className="inner-section">
+        <div className="container">
+          <div style={{marginBottom:72}}>
+            <span className="section-eyebrow"><span className="dot"/>Why join us</span>
+            <h2 className="section-title" style={{margin:'16px 0 36px'}}>Built for people who<br/>like to do real work.</h2>
+            <div className="features-grid">
+              {perks.map(({t,d,c},i)=>(
+                <article key={i} className={`feature ${c}`}>
+                  <span className="num">0{i+1}</span>
+                  <h3>{t}</h3>
+                  <p>{d}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <span className="section-eyebrow"><span className="dot"/>Open roles</span>
+            <h2 className="section-title" style={{margin:'16px 0 36px'}}>Current openings</h2>
+            {jobs.map((j,i)=>(
+              <div key={i} className="job-card">
+                <div>
+                  <div className="job-title">{j.title}</div>
+                  <div className="job-meta">{j.dept} · {j.type}</div>
+                  <div style={{fontSize:14,color:'var(--ink-2)',marginTop:6,maxWidth:'60ch'}}>{j.desc}</div>
+                  <div style={{display:'flex',gap:6,marginTop:10,flexWrap:'wrap'}}>
+                    {j.tags.map(tag=><span key={tag} style={{fontSize:11,fontWeight:700,padding:'3px 8px',background:'var(--bg-2)',border:'1px solid var(--hair)',borderRadius:999}}>{tag}</span>)}
+                  </div>
+                </div>
+                <a className="btn" href={`mailto:infos@eduhubsa.online?subject=Application — ${j.title}`} style={{flexShrink:0}}>
+                  Apply
+                  <span className="btn-arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                </a>
+              </div>
+            ))}
+            <div style={{marginTop:28,padding:'24px',border:'1.5px solid var(--hair)',borderRadius:14,background:'var(--bg-2)',textAlign:'center'}}>
+              <div style={{fontSize:16,fontWeight:700,marginBottom:6}}>Don't see the right role?</div>
+              <p style={{fontSize:14,color:'var(--ink-2)',margin:'0 0 14px'}}>We hire for character and capability. Send us your CV and tell us what you'd build.</p>
+              <a className="btn btn-dark" href="mailto:infos@eduhubsa.online?subject=General application">Send an open application</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+function App(){
+  React.useEffect(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -60px 0px'});document.querySelectorAll('.feature,.job-card,.section-eyebrow,.section-title').forEach(el=>{el.classList.add('fade-up');io.observe(el);});return()=>io.disconnect();},[]);
+  return(<><Nav/><main><Page/></main><Footer/></>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

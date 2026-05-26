@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Security — EduHubSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const NAV_LINKS=[['index.html#features','Features'],['case-studies.html','Case Studies'],['blog.html','Blog'],['pricing.html','Pricing'],['contact.html','Need help?']];
+const FOOT_COLS=[{h:'Product',links:[['index.html#features','Features'],['pricing.html','Pricing'],['integrations.html','Integrations'],['changelog.html','Changelog'],['roadmap.html','Roadmap']]},{h:'Resources',links:[['case-studies.html','Case studies'],['help.html','Help centre'],['migration.html','Migration guide'],['blog.html','Blog'],['mailto:infos@eduhubsa.online','infos@eduhubsa.online']]},{h:'Company',links:[['about.html','About'],['careers.html','Careers'],['contact.html','Contact'],['privacy.html','POPIA & Privacy'],['terms.html','Terms']]}];
+function Nav(){const[s,setS]=React.useState(false);React.useEffect(()=>{const f=()=>setS(window.scrollY>12);f();window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);return(<header className={`nav-wrap ${s?'scrolled':''}`}><div className="container nav"><a href="index.html" className="brand"><span className="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhub<span style={{color:'var(--lime-deep)'}}>sa</span></a><nav className="nav-links">{NAV_LINKS.map(([h,l])=><a key={l} className="nav-link" href={h}>{l}</a>)}</nav><a className="btn" href="contact.html">Start free trial</a></div></header>);}
+function Footer(){return(<footer className="footer"><div className="container"><div className="foot-grid"><div><a href="index.html" className="brand" style={{color:'var(--bg)'}}><span className="brand-mark" style={{background:'var(--lime)',color:'var(--ink)'}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhubsa</a><p className="foot-blurb">South African institution management. POPIA-compliant.</p></div>{FOOT_COLS.map(({h,links})=><div key={h}><h5>{h}</h5><ul>{links.map(([href,label])=><li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}</div><div className="foot-bottom"><div>© 2026 EduHubSA (Pty) Ltd.</div><div className="links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div></div></div></footer>);}
+
+const pillars=[
+  {t:'Encryption at rest',d:'All data encrypted with AES-256. Encryption keys managed via a dedicated HSM and rotated annually.',c:'bg-lime'},
+  {t:'Encryption in transit',d:'All connections use TLS 1.3. HTTP is automatically redirected to HTTPS. HSTS enforced.',c:'bg-mint'},
+  {t:'Access controls',d:'Role-based access control (RBAC). Every admin action is logged, timestamped, and attributable.',c:'bg-cream'},
+  {t:'SA data residency',d:'All data stored in South African data centres (Johannesburg & Cape Town). No cross-border transfers without consent.',c:'bg-lilac'},
+  {t:'Backups',d:'Automated daily backups with 90-day retention. Point-in-time recovery available. Backup integrity verified weekly.',c:'bg-lime'},
+  {t:'Penetration testing',d:'Annual third-party penetration tests by an accredited South African security firm. Results reviewed by our CTO.',c:'bg-mint'},
+];
+
+function Page(){
+  return(
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <span className="section-eyebrow"><span className="dot"/>Security</span>
+          <h1 style={{marginTop:14}}>Learner data is sacred.<br/>We treat it that way.</h1>
+          <p>EduHubSA handles sensitive information about children. We apply the highest security standards and full POPIA compliance — not because we have to, but because it's the right thing to do.</p>
+        </div>
+      </section>
+
+      <section className="inner-section">
+        <div className="container">
+          <div style={{marginBottom:72}}>
+            <span className="section-eyebrow"><span className="dot"/>How we protect your data</span>
+            <h2 className="section-title" style={{margin:'16px 0 36px'}}>Security, layer by layer.</h2>
+            <div className="features-grid">
+              {pillars.map(({t,d,c},i)=>(
+                <article key={i} className={`feature ${c}`}>
+                  <span className="num">0{i+1}</span>
+                  <h3>{t}</h3>
+                  <p>{d}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:22,marginBottom:72}}>
+            <div style={{background:'var(--ink)',color:'var(--bg)',borderRadius:18,padding:'36px 32px',border:'1.5px solid var(--ink)'}}>
+              <h2 style={{fontSize:26,fontWeight:800,letterSpacing:'-.02em',margin:'0 0 16px',color:'var(--lime)'}}>POPIA Compliance</h2>
+              <p style={{fontSize:15,color:'rgba(250,250,242,.75)',lineHeight:1.65,margin:'0 0 16px'}}>We are fully compliant with the Protection of Personal Information Act (POPIA) No. 4 of 2013. We have appointed a dedicated Information Officer and maintain a POPIA manual available on request.</p>
+              <ul style={{listStyle:'none',padding:0,margin:0}}>
+                {['Lawful purpose for all processing','Minimum information collected','Data subject rights honoured','Third-party processors bound by DPAs','Breach notification within 72 hours'].map(i=>(
+                  <li key={i} style={{fontSize:14,color:'rgba(250,250,242,.8)',padding:'8px 0',borderBottom:'1px solid rgba(255,255,255,.1)',display:'flex',gap:10,alignItems:'center'}}>
+                    <span style={{color:'var(--lime)',fontWeight:800}}>✓</span>{i}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <div className="inner-card lime" style={{marginBottom:16}}>
+                <h3 style={{fontSize:18,fontWeight:800,margin:'0 0 8px'}}>Vulnerability disclosure</h3>
+                <p style={{fontSize:14,color:'var(--ink-2)',margin:'0 0 12px'}}>Found a security issue? We appreciate responsible disclosure. Email our security team and we'll respond within 48 hours.</p>
+                <a href="mailto:infos@eduhubsa.online?subject=Security vulnerability report" style={{fontWeight:800,borderBottom:'2px solid var(--ink)',fontSize:14}}>Report a vulnerability</a>
+              </div>
+              <div className="inner-card">
+                <h3 style={{fontSize:18,fontWeight:800,margin:'0 0 8px'}}>Security uptime</h3>
+                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginTop:8}}>
+                  {[['99.98%','Platform uptime'],['AES-256','Encryption standard'],['TLS 1.3','Connection security'],['24hrs','Incident response SLA']].map(([v,l])=>(
+                    <div key={l} style={{background:'var(--bg-2)',borderRadius:8,padding:'12px',textAlign:'center'}}>
+                      <div style={{fontSize:22,fontWeight:800,letterSpacing:'-.02em'}}>{v}</div>
+                      <div style={{fontSize:11,color:'var(--muted)',marginTop:3}}>{l}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="prose">
+            <h2>Our security commitments</h2>
+            <ul>
+              <li>We will never sell your data to third parties.</li>
+              <li>We will notify you of any confirmed data breach within 72 hours.</li>
+              <li>We will provide a full audit log of all access to your institution's data on request.</li>
+              <li>We will conduct annual third-party security audits and make executive summaries available to customers.</li>
+              <li>We will maintain data residency within South Africa for all customer data.</li>
+            </ul>
+            <h2>Questions?</h2>
+            <p>For security enquiries, contact our Information Officer at <a href="mailto:infos@eduhubsa.online">infos@eduhubsa.online</a> with the subject line "Security enquiry".</p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+function App(){
+  React.useEffect(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -60px 0px'});document.querySelectorAll('.feature,.inner-card,.section-eyebrow,.section-title').forEach(el=>{el.classList.add('fade-up');io.observe(el);});return()=>io.disconnect();},[]);
+  return(<><Nav/><main><Page/></main><Footer/></>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

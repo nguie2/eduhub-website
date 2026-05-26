@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Terms of Service — EduHubSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const NAV_LINKS=[['index.html#features','Features'],['case-studies.html','Case Studies'],['blog.html','Blog'],['pricing.html','Pricing'],['contact.html','Need help?']];
+const FOOT_COLS=[{h:'Product',links:[['index.html#features','Features'],['pricing.html','Pricing'],['integrations.html','Integrations'],['changelog.html','Changelog'],['roadmap.html','Roadmap']]},{h:'Resources',links:[['case-studies.html','Case studies'],['help.html','Help centre'],['migration.html','Migration guide'],['blog.html','Blog'],['mailto:infos@eduhubsa.online','infos@eduhubsa.online']]},{h:'Company',links:[['about.html','About'],['careers.html','Careers'],['contact.html','Contact'],['privacy.html','POPIA & Privacy'],['terms.html','Terms']]}];
+function Nav(){const[s,setS]=React.useState(false);React.useEffect(()=>{const f=()=>setS(window.scrollY>12);f();window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);return(<header className={`nav-wrap ${s?'scrolled':''}`}><div className="container nav"><a href="index.html" className="brand"><span className="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhub<span style={{color:'var(--lime-deep)'}}>sa</span></a><nav className="nav-links">{NAV_LINKS.map(([h,l])=><a key={l} className="nav-link" href={h}>{l}</a>)}</nav><a className="btn" href="contact.html">Start free trial</a></div></header>);}
+function Footer(){return(<footer className="footer"><div className="container"><div className="foot-grid"><div><a href="index.html" className="brand" style={{color:'var(--bg)'}}><span className="brand-mark" style={{background:'var(--lime)',color:'var(--ink)'}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhubsa</a><p className="foot-blurb">South African institution management. POPIA-compliant.</p></div>{FOOT_COLS.map(({h,links})=><div key={h}><h5>{h}</h5><ul>{links.map(([href,label])=><li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}</div><div className="foot-bottom"><div>© 2026 EduHubSA (Pty) Ltd.</div><div className="links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div></div></div></footer>);}
+function Page(){
+  return(
+    <>
+      <section className="page-hero"><div className="container"><span className="section-eyebrow"><span className="dot"/>Legal</span><h1 style={{marginTop:14}}>Terms of Service</h1><p>Last updated: 1 May 2026. By using EduHubSA, you agree to these terms. Governed by the laws of the Republic of South Africa.</p></div></section>
+      <section className="inner-section"><div className="container" style={{display:'grid',gridTemplateColumns:'1fr 3fr',gap:56,alignItems:'start'}}>
+        <div style={{position:'sticky',top:100}}><div style={{border:'1.5px solid var(--ink)',borderRadius:14,padding:'20px 18px',background:'#fff'}}><div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'.1em',color:'var(--muted)',marginBottom:12}}>Contents</div>{['Acceptance','The service','Your account','Acceptable use','Payment','Data ownership','Termination','Liability','Governing law','Contact'].map(s=><div key={s} style={{fontSize:14,padding:'6px 0',borderBottom:'1px solid var(--hair)',color:'var(--ink-2)'}}>{s}</div>)}</div></div>
+        <div className="prose">
+          <h2>1. Acceptance of Terms</h2>
+          <p>By accessing or using the EduHubSA platform at eduhubsa.online (the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you are accepting on behalf of an institution, you represent that you have authority to bind that institution. If you do not agree, do not use the Service.</p>
+          <h2>2. The Service</h2>
+          <p>EduHubSA provides a cloud-based institution management platform for South African schools and universities. Features include student information management, attendance tracking, fee management, timetabling, and parent communication tools. We reserve the right to modify, suspend, or discontinue any aspect of the Service with 30 days' notice, except in cases of emergency.</p>
+          <h2>3. Your Account</h2>
+          <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must notify us immediately at <a href="mailto:infos@eduhubsa.online">infos@eduhubsa.online</a> if you suspect unauthorised access. You must provide accurate information when registering and keep it updated.</p>
+          <h2>4. Acceptable Use</h2>
+          <p>You agree not to: use the Service for any unlawful purpose; attempt to gain unauthorised access to any system; transmit harmful or malicious code; resell or sublicense the Service without written permission; or use the Service to process data beyond your stated institution's learners and staff.</p>
+          <h2>5. Payment and Billing</h2>
+          <p>Fees are billed monthly or annually as agreed. All prices are in South African Rand (ZAR) and exclude VAT unless stated. Late payments may result in service suspension after 14 days' notice. You may cancel at any time; no refunds are issued for partial billing periods.</p>
+          <h2>6. Data Ownership</h2>
+          <p>You retain full ownership of all data you upload to the Service. EduHubSA is a data processor acting on your instructions. Upon termination, we will provide a full export of your data within 48 hours and delete all copies within 30 days thereafter. We will never sell, rent, or share your data with third parties for commercial purposes.</p>
+          <h2>7. Termination</h2>
+          <p>Either party may terminate the agreement with 30 days' written notice. We may terminate immediately for material breach, including non-payment or violation of acceptable use policies. Upon termination, your access will be suspended but your data will remain accessible for 30 days for export purposes.</p>
+          <h2>8. Limitation of Liability</h2>
+          <p>To the maximum extent permitted by South African law, EduHubSA's total liability for any claim arising under these Terms shall not exceed the fees paid by you in the 3 months preceding the claim. We are not liable for indirect, incidental, or consequential damages. We provide the Service on an "as is" basis and do not warrant uninterrupted or error-free operation.</p>
+          <h2>9. Governing Law</h2>
+          <p>These Terms are governed by the laws of the Republic of South Africa. Any disputes shall be resolved in the courts of Johannesburg, Gauteng, South Africa. We are subject to the Consumer Protection Act 68 of 2008 and the Protection of Personal Information Act 4 of 2013.</p>
+          <h2>10. Contact</h2>
+          <p>For any queries regarding these Terms: <a href="mailto:infos@eduhubsa.online">infos@eduhubsa.online</a> — EduHubSA (Pty) Ltd, Johannesburg, Gauteng, South Africa.</p>
+        </div>
+      </div></section>
+    </>
+  );
+}
+function App(){return(<><Nav/><main><Page/></main><Footer/></>);}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

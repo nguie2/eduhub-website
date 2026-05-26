@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Integrations — EduHubSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const NAV_LINKS=[['index.html#features','Features'],['case-studies.html','Case Studies'],['blog.html','Blog'],['pricing.html','Pricing'],['contact.html','Need help?']];
+const FOOT_COLS=[{h:'Product',links:[['index.html#features','Features'],['pricing.html','Pricing'],['integrations.html','Integrations'],['changelog.html','Changelog'],['roadmap.html','Roadmap']]},{h:'Resources',links:[['case-studies.html','Case studies'],['help.html','Help centre'],['migration.html','Migration guide'],['blog.html','Blog'],['mailto:infos@eduhubsa.online','infos@eduhubsa.online']]},{h:'Company',links:[['about.html','About'],['careers.html','Careers'],['contact.html','Contact'],['privacy.html','POPIA & Privacy'],['terms.html','Terms']]}];
+function Nav(){const[s,setS]=React.useState(false);React.useEffect(()=>{const f=()=>setS(window.scrollY>12);f();window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);return(<header className={`nav-wrap ${s?'scrolled':''}`}><div className="container nav"><a href="index.html" className="brand"><span className="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhub<span style={{color:'var(--lime-deep)'}}>sa</span></a><nav className="nav-links">{NAV_LINKS.map(([h,l])=><a key={l} className="nav-link" href={h}>{l}</a>)}</nav><a className="btn" href="contact.html">Start free trial</a></div></header>);}
+function Footer(){return(<footer className="footer"><div className="container"><div className="foot-grid"><div><a href="index.html" className="brand" style={{color:'var(--bg)'}}><span className="brand-mark" style={{background:'var(--lime)',color:'var(--ink)'}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhubsa</a><p className="foot-blurb">South African institution management. POPIA-compliant.</p></div>{FOOT_COLS.map(({h,links})=><div key={h}><h5>{h}</h5><ul>{links.map(([href,label])=><li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}</div><div className="foot-bottom"><div>© 2026 EduHubSA (Pty) Ltd.</div><div className="links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div></div></div></footer>);}
+
+const categories=[
+  {name:'Payments & Finance',color:'bg-lime',items:[
+    {icon:'💳',name:'PayShap',desc:'Instant SA bank-to-bank payments for fee collection'},
+    {icon:'🏦',name:'EFT / Bank Transfer',desc:'Standard electronic fund transfers, auto-reconciled'},
+    {icon:'📊',name:'Sage Accounting',desc:'Sync fee income and expense data to Sage'},
+    {icon:'📈',name:'Xero',desc:'Export financial data directly to Xero ledgers'},
+  ]},
+  {name:'Communication',color:'bg-mint',items:[
+    {icon:'💬',name:'WhatsApp Business',desc:'Automated fee reminders and mark updates to parents'},
+    {icon:'📲',name:'SMS Gateway',desc:'Bulk SMS in 4 SA official languages via local providers'},
+    {icon:'📧',name:'Email (SMTP)',desc:'Transactional emails via your institution\'s domain'},
+    {icon:'📢',name:'Push Notifications',desc:'Mobile app push for urgent announcements'},
+  ]},
+  {name:'Learning Management',color:'bg-cream',items:[
+    {icon:'📚',name:'Moodle',desc:'Sync student rosters and marks with your Moodle LMS'},
+    {icon:'🎓',name:'Canvas',desc:'Bi-directional roster and grade sync with Canvas'},
+    {icon:'📝',name:'Google Classroom',desc:'Import class lists and assignment results'},
+    {icon:'🔵',name:'Microsoft Teams',desc:'Sync student groups for Teams for Education'},
+  ]},
+  {name:'Identity & Access',color:'bg-lilac',items:[
+    {icon:'🔐',name:'SAML 2.0',desc:'Single sign-on with any SAML-compatible identity provider'},
+    {icon:'🔑',name:'OpenID Connect',desc:'OAuth 2.0 / OIDC for modern SSO implementations'},
+    {icon:'🌐',name:'Google Workspace',desc:'Sign in with Google for staff and admin accounts'},
+    {icon:'🔷',name:'Microsoft Entra ID',desc:'Azure AD / Entra ID integration for staff SSO'},
+  ]},
+];
+
+function Page(){
+  return(
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <span className="section-eyebrow"><span className="dot"/>Integrations</span>
+          <h1 style={{marginTop:14}}>Connects with the tools<br/>you already use.</h1>
+          <p>EduHubSA integrates natively with SA payment rails, learning management systems, and identity providers — so you don't have to choose between your existing tools and a unified dashboard.</p>
+        </div>
+      </section>
+      <section className="inner-section">
+        <div className="container">
+          {categories.map(({name,color,items},ci)=>(
+            <div key={ci} style={{marginBottom:64}}>
+              <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:24}}>
+                <span className={`section-eyebrow ${color}`} style={{background:'transparent',border:'1.5px solid var(--ink)'}}>{name}</span>
+              </div>
+              <div className="card-grid-3" style={{gridTemplateColumns:'repeat(4,1fr)'}}>
+                {items.map(({icon,name:n,desc})=>(
+                  <div key={n} className="int-card">
+                    <div className="int-icon">{icon}</div>
+                    <div className="int-name">{n}</div>
+                    <div className="int-desc">{desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div style={{background:'var(--ink)',borderRadius:18,padding:'48px',color:'var(--bg)',textAlign:'center'}}>
+            <h2 style={{fontSize:32,fontWeight:800,letterSpacing:'-.02em',margin:'0 0 12px',color:'var(--bg)'}}>Need a custom integration?</h2>
+            <p style={{fontSize:17,color:'rgba(250,250,242,.75)',maxWidth:'50ch',margin:'0 auto 24px'}}>We have a REST API and webhook system for building custom connections. Our team can also build integrations on your behalf.</p>
+            <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap'}}>
+              <a className="btn" href="contact.html">Talk to our team</a>
+              <a className="btn" style={{background:'rgba(255,255,255,.1)',color:'var(--bg)',border:'1.5px solid rgba(255,255,255,.2)'}} href="mailto:infos@eduhubsa.online?subject=API documentation request">Request API docs</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+function App(){
+  React.useEffect(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});document.querySelectorAll('.int-card,.section-eyebrow').forEach(el=>{el.classList.add('fade-up');io.observe(el);});return()=>io.disconnect();},[]);
+  return(<><Nav/><main><Page/></main><Footer/></>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

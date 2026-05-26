@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Migration Guide — EduHubSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const NAV_LINKS=[['index.html#features','Features'],['case-studies.html','Case Studies'],['blog.html','Blog'],['pricing.html','Pricing'],['contact.html','Need help?']];
+const FOOT_COLS=[{h:'Product',links:[['index.html#features','Features'],['pricing.html','Pricing'],['integrations.html','Integrations'],['changelog.html','Changelog'],['roadmap.html','Roadmap']]},{h:'Resources',links:[['case-studies.html','Case studies'],['help.html','Help centre'],['migration.html','Migration guide'],['blog.html','Blog'],['mailto:infos@eduhubsa.online','infos@eduhubsa.online']]},{h:'Company',links:[['about.html','About'],['careers.html','Careers'],['contact.html','Contact'],['privacy.html','POPIA & Privacy'],['terms.html','Terms']]}];
+function Nav(){const[s,setS]=React.useState(false);React.useEffect(()=>{const f=()=>setS(window.scrollY>12);f();window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);return(<header className={`nav-wrap ${s?'scrolled':''}`}><div className="container nav"><a href="index.html" className="brand"><span className="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhub<span style={{color:'var(--lime-deep)'}}>sa</span></a><nav className="nav-links">{NAV_LINKS.map(([h,l])=><a key={l} className="nav-link" href={h}>{l}</a>)}</nav><a className="btn" href="contact.html">Start free trial</a></div></header>);}
+function Footer(){return(<footer className="footer"><div className="container"><div className="foot-grid"><div><a href="index.html" className="brand" style={{color:'var(--bg)'}}><span className="brand-mark" style={{background:'var(--lime)',color:'var(--ink)'}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c2.5 2 7.5 2 10 0v-4.5"/></svg></span>eduhubsa</a><p className="foot-blurb">South African institution management. POPIA-compliant.</p></div>{FOOT_COLS.map(({h,links})=><div key={h}><h5>{h}</h5><ul>{links.map(([href,label])=><li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}</div><div className="foot-bottom"><div>© 2026 EduHubSA (Pty) Ltd.</div><div className="links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></div></div></div></footer>);}
+
+const steps=[
+  {n:'01',t:'Export your data',d:'Request a full data export from your current system. For CEMIS, SASAMS, or Excel-based systems, we accept CSV and XLSX. For other SIS platforms, contact us — we've likely done it before.', detail:'Supported formats: Excel (.xlsx), CSV, CEMIS export, SASAMS export, SchoolAdmin XML, custom formats on request.'},
+  {n:'02',t:'We review & map your data',d:'Send your export to infos@eduhubsa.online. Our onboarding team reviews the structure, maps your fields to EduHubSA's data model, and flags any gaps — usually within 24 hours.',detail:'We check: learner records, guardian contacts, fee history, staff records, class & subject lists, timetable data.'},
+  {n:'03',t:'Test import in staging',d:'We run the import in a staging environment so you can review and verify data before going live. You log in, browse records, spot-check learner data, and sign off.',detail:'Nothing touches your live system until you approve. We'll walk you through the review over a call if helpful.'},
+  {n:'04',t:'Go live',d:'Once you approve the staging import, we migrate data to your live account. Most institutions are fully operational within 48 hours of sending their export.',detail:'We schedule go-live for a weekend or school holiday to minimise disruption. Your team gets a 60-minute onboarding call on day one.'},
+  {n:'05',t:'Ongoing support',d:'Your dedicated onboarding contact stays available for 30 days post-launch. After that, our support team is reachable by email within 24 hours — always.',detail:'We also provide training videos for teachers and admins, and a printable quick-start guide for less tech-savvy staff.'},
+];
+
+const faqs=[
+  {q:'How long does migration take?',a:'Most institutions are live within 48 hours of sending their data export. Complex or large institutions (5,000+ learners, multi-campus) may take up to a week for a thorough staging review.'},
+  {q:'Is there a cost for migration?',a:'No. Migration and onboarding are included for all plans at no extra cost. Our team handles the technical heavy lifting so your staff don\'t have to.'},
+  {q:'Will we lose any historical data?',a:'No. We import all historical data including past fee records, learner history, and mark history — provided it exists in your export. We\'ll tell you upfront if anything can\'t be imported.'},
+  {q:'Do we need to run both systems in parallel?',a:'It\'s your choice. Some institutions prefer a clean cutover; others run both for a term while staff get comfortable. We\'ll advise based on your situation.'},
+  {q:'What if our data is messy?',a:'Very common. Our team will clean and normalise data as part of the import — duplicate records, inconsistent formatting, missing fields. We\'ll flag anything that requires your input.'},
+  {q:'Can we migrate mid-year?',a:'Yes. We\'ve done many mid-year migrations. We take a snapshot of your current term\'s data and ensure continuity of attendance records, marks, and fee balances.'},
+];
+
+function FaqItem({q,a}){
+  const[open,setOpen]=React.useState(false);
+  return(
+    <div className="faq-item">
+      <div className="faq-q" onClick={()=>setOpen(o=>!o)}>
+        {q}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{transform:open?'rotate(180deg)':'rotate(0)',transition:'transform .2s ease',flexShrink:0}}><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      {open&&<div className="faq-a">{a}</div>}
+    </div>
+  );
+}
+
+function Page(){
+  return(
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <span className="section-eyebrow"><span className="dot"/>Migration</span>
+          <h1 style={{marginTop:14}}>Switching to EduHubSA<br/>is easier than you think.</h1>
+          <p>Our onboarding team handles the entire migration — from data export to go-live — at no extra cost. Most institutions are fully operational within 48 hours.</p>
+        </div>
+      </section>
+
+      <section className="inner-section">
+        <div className="container">
+
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16,marginBottom:72}}>
+            {[['48 hrs','Typical go-live time'],['100%','Migration cost covered'],['30 days','Post-launch support']].map(([v,l])=>(
+              <div key={l} className="inner-card lime" style={{textAlign:'center',padding:'32px 24px'}}>
+                <div style={{fontSize:42,fontWeight:800,letterSpacing:'-.03em',lineHeight:1}}>{v}</div>
+                <div style={{fontSize:14,color:'var(--ink-2)',marginTop:8,fontWeight:600}}>{l}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{marginBottom:72}}>
+            <span className="section-eyebrow"><span className="dot"/>How it works</span>
+            <h2 className="section-title" style={{margin:'16px 0 40px'}}>Five steps to being live.</h2>
+            <div style={{display:'flex',flexDirection:'column',gap:0}}>
+              {steps.map(({n,t,d,detail},i)=>(
+                <div key={i} className="mig-step fade-up">
+                  <div className="mig-num">{n}</div>
+                  <div className="mig-body">
+                    <h3>{t}</h3>
+                    <p>{d}</p>
+                    <div className="mig-detail">{detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:22,marginBottom:72}}>
+            <div style={{background:'var(--ink)',color:'var(--bg)',borderRadius:18,padding:'36px 32px'}}>
+              <h2 style={{fontSize:24,fontWeight:800,letterSpacing:'-.02em',margin:'0 0 12px',color:'var(--lime)'}}>Supported systems</h2>
+              <p style={{fontSize:14,color:'rgba(250,250,242,.7)',margin:'0 0 20px',lineHeight:1.65}}>We've migrated data from all of these. Don't see yours? Contact us — if you can export it, we can import it.</p>
+              <ul style={{listStyle:'none',padding:0,margin:0}}>
+                {['CEMIS (DBE)','SASAMS','SchoolAdmin','Fedora','Excel / manual spreadsheets','Google Sheets','Pastel Payroll (staff data)','Custom in-house systems'].map(s=>(
+                  <li key={s} style={{fontSize:14,color:'rgba(250,250,242,.85)',padding:'9px 0',borderBottom:'1px solid rgba(255,255,255,.08)',display:'flex',gap:10,alignItems:'center'}}>
+                    <span style={{color:'var(--lime)',fontWeight:800,flexShrink:0}}>✓</span>{s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:16}}>
+              <div className="inner-card lime">
+                <h3 style={{fontSize:18,fontWeight:800,margin:'0 0 8px'}}>Ready to start?</h3>
+                <p style={{fontSize:14,color:'var(--ink-2)',margin:'0 0 16px',lineHeight:1.6}}>Send your data export to our onboarding team and we'll have a migration plan ready within 24 hours.</p>
+                <a className="btn btn-dark" href="mailto:infos@eduhubsa.online?subject=Migration enquiry" style={{fontSize:13,padding:'10px 18px'}}>Email infos@eduhubsa.online</a>
+              </div>
+              <div className="inner-card">
+                <h3 style={{fontSize:18,fontWeight:800,margin:'0 0 8px'}}>Book a migration call</h3>
+                <p style={{fontSize:14,color:'var(--ink-2)',margin:'0 0 16px',lineHeight:1.6}}>Prefer to talk it through first? Book a 30-minute call with our onboarding team. We'll assess your current setup and give you a clear plan.</p>
+                <a className="btn" href="contact.html" style={{fontSize:13,padding:'10px 18px'}}>Book a call</a>
+              </div>
+            </div>
+          </div>
+
+          <div style={{marginBottom:72}}>
+            <span className="section-eyebrow"><span className="dot"/>FAQ</span>
+            <h2 className="section-title" style={{margin:'16px 0 32px'}}>Migration questions.</h2>
+            <div style={{maxWidth:720}}>
+              {faqs.map((f,i)=><FaqItem key={i} {...f}/>)}
+            </div>
+          </div>
+
+          <div style={{background:'var(--lime)',border:'1.5px solid var(--ink)',borderRadius:18,padding:'48px',textAlign:'center'}}>
+            <h2 style={{fontSize:28,fontWeight:800,letterSpacing:'-.02em',margin:'0 0 10px'}}>We make switching painless.</h2>
+            <p style={{color:'var(--ink-2)',maxWidth:'48ch',margin:'0 auto 24px',fontSize:16}}>No technical skills required on your end. Just send us your data and we handle the rest.</p>
+            <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap'}}>
+              <a className="btn btn-dark" href="mailto:infos@eduhubsa.online?subject=Migration enquiry">Start your migration</a>
+              <a className="btn" href="contact.html" style={{background:'#fff'}}>Talk to our team</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </>
+  );
+}
+function App(){
+  React.useEffect(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});document.querySelectorAll('.fade-up,.inner-card,.mig-step').forEach(el=>{el.classList.add('fade-up');io.observe(el);});return()=>io.disconnect();},[]);
+  return(<><Nav/><main><Page/></main><Footer/></>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

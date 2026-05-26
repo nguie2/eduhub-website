@@ -1104,7 +1104,8 @@ button { font: inherit; cursor: pointer; }
 /* responsive */
 @media (max-width: 960px) {
   .hero-grid { grid-template-columns: 1fr; }
-  .illo { min-height: 480px; margin-top: 30px; }
+  .hero::before, .hero::after { display: none; }
+  .illo { min-height: 380px; margin-top: 30px; overflow: hidden; }
   .features-grid, .t-grid, .pricing-grid, .stats-grid { grid-template-columns: 1fr 1fr; }
   .feature.big { grid-column: span 2; }
   .dash-body { grid-template-columns: 1fr; }
@@ -1112,6 +1113,10 @@ button { font: inherit; cursor: pointer; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
+  body { overflow-x: hidden; }
+  .hero { overflow: hidden; }
+  .hero::before, .hero::after { display: none; }
+  .illo { display: none; }
   .nav { height: auto; min-height: 64px; flex-wrap: wrap; padding: 16px 0; }
   .nav-burger { display: flex; align-items: center; }
   .nav-cta { display: none; }
@@ -1128,6 +1133,9 @@ button { font: inherit; cursor: pointer; }
   .logos-label { display: none; }
   .foot-grid { grid-template-columns: 1fr; gap: 28px; }
   .container { padding: 0 20px; }
+  .lede { font-size: 17px; }
+  .cta-row { max-width: 100%; }
+  .section { padding: 72px 0; }
 }
 </style>
 </head>
